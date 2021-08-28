@@ -1,7 +1,7 @@
 package com.xenrath.manusiabuah.ui.login
 
-import com.xenrath.manusiabuah.data.DataUser
-import com.xenrath.manusiabuah.data.ResponseLogin
+import com.xenrath.manusiabuah.data.model.user.DataUser
+import com.xenrath.manusiabuah.data.model.user.ResponseUser
 import com.xenrath.manusiabuah.data.database.PrefManager
 import com.xenrath.manusiabuah.network.ApiService
 import retrofit2.Call
@@ -17,28 +17,24 @@ class LoginPresenter(val view: LoginContract.View): LoginContract.Presenter {
     }
 
     override fun doLogin(email: String, password: String, level: String) {
-        view.onLoading(true)
+        view.onLoading(true, "Melakukan login...")
         ApiService.endPoint.loginSeller(
             email,
             password,
             level
-        ).enqueue(object: Callback<ResponseLogin> {
+        ).enqueue(object: Callback<ResponseUser> {
             override fun onResponse(
-                call: Call<ResponseLogin>,
-                response: Response<ResponseLogin>
+                call: Call<ResponseUser>,
+                response: Response<ResponseUser>
             ) {
                 view.onLoading(false)
                 if (response.isSuccessful) {
-                    val responseLogin: ResponseLogin? = response.body()
-                    view.showMessage(responseLogin!!.message)
-
-                    if (responseLogin.status) {
-                        view.onResult(responseLogin)
-                    }
+                    val responseUser: ResponseUser? = response.body()
+                    view.onResult(responseUser!!)
                 }
             }
 
-            override fun onFailure(call: Call<ResponseLogin>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseUser>, t: Throwable) {
                 view.onLoading(false)
             }
 

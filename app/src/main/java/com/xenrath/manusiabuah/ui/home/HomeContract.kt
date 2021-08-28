@@ -1,7 +1,6 @@
 package com.xenrath.manusiabuah.ui.home
 
-import com.xenrath.manusiabuah.data.ResponseProduct
-import com.xenrath.manusiabuah.data.database.model.ResponseProductList
+import com.xenrath.manusiabuah.data.model.product.ResponseProductList
 
 interface HomeContract {
 
@@ -13,8 +12,8 @@ interface HomeContract {
     interface View {
         fun initListener(view: android.view.View)
         fun onResultList(responseProductList: ResponseProductList)
-        fun onResultSearch(responseProduct: ResponseProduct)
-        fun onLoading(loading: Boolean)
+        fun onResultSearch(responseProductList: ResponseProductList)
+        fun onLoading(loading: Boolean, message: String? = "Loading...")
     }
 
 }

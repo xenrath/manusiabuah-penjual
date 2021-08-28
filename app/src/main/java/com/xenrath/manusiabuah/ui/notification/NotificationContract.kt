@@ -1,29 +1,19 @@
 package com.xenrath.manusiabuah.ui.notification
 
-import com.xenrath.manusiabuah.data.database.model.DataBargain
-import com.xenrath.manusiabuah.data.database.model.ResponseBargainList
-import com.xenrath.manusiabuah.data.database.model.ResponseBargainUpdate
+import com.xenrath.manusiabuah.data.model.bargain.ResponseBargainList
 
 interface NotificationContract {
-
     interface Presenter {
-        fun getOfferSend()
-        fun getOfferWaiting(id: String)
-        fun getOfferHistory(id: String)
-        fun offerReject(id: Long)
-        fun offerAccept(id: Long)
+        fun bargainAccepted(user_id: String, status: String)
+        fun bargainSellerWaiting(user_id: String)
     }
 
     interface View {
         fun initFragment(view: android.view.View)
-        fun initListener()
-        fun onLoading(loading: Boolean)
-        fun onResultListWaiting(responseBargainList: ResponseBargainList)
-        fun onResultListHistory(responseBargainList: ResponseBargainList)
-        fun onResultUpdate(responseBargainUpdate: ResponseBargainUpdate)
-        fun showDialogReject(dataBargain: DataBargain, position: Int)
-        fun showDialogAccept(dataBargain: DataBargain, position: Int)
-        fun showMessage(message: String)
+        fun onLoading(loading: Boolean, message: String? = "Loading...")
+        fun onResultMyBargain(responseBargainList: ResponseBargainList)
+        fun onResultManageBargain(responseBargainList: ResponseBargainList)
+        fun onResultMyPurchase(responseBargainList: ResponseBargainList)
+        fun onResultManagePurchase(responseBargainList: ResponseBargainList)
     }
-
 }

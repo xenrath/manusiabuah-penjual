@@ -12,20 +12,32 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <item name="circularProgressIndicatorStyle">@style/Widget.App.CircularProgressIndicator</item>
+        <item name="circularProgressIndicatorStyle">@style/Widget.App.CircularProgressIndicator
+        </item>
     </style>
+
     <style name="Theme.ManusiaBuah.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <style name="Theme.ManusiaBuah.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <style name="Theme.ManusiaBuah.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
     <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
     </style>
+
+    <style name="Widget.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
+        <item name="fontFamily">@font/poppins</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
     <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>
     </style>
+
     <style name="Widget.App.CircularProgressIndicator" parent="Widget.MaterialComponents.CircularProgressIndicator">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.CircularProgressIndicator</item>
         <item name="trackThickness">20dp</item>
@@ -33,5 +45,12 @@
 
     <style name="ThemeOverlay.App.CircularProgressIndicator" parent="">
         <item name="colorPrimary">#4DD0E1</item>
+    </style>
+
+    <!--  Tabs  -->
+    <style name="CustomTabsStyle" parent="TextAppearance.Design.Tab">
+        <item name="android:textAllCaps">false</item>
+        <item name="fontFamily">@font/poppins</item>
+        <item name="android:fontFamily">@font/poppins</item>
     </style>
 </resources>

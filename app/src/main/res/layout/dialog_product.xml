@@ -1,107 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary">
+    android:orientation="vertical"
+    android:paddingVertical="10dp"
+    android:background="@drawable/bottom_sheet_backgroud">
 
     <View
-        android:id="@+id/line"
-        android:layout_width="75dp"
-        android:layout_height="3dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/colorPrimaryDark" />
-
-    <ImageView
-        android:id="@+id/btn_close"
-        android:layout_width="46dp"
-        android:layout_height="46dp"
-        android:layout_alignParentEnd="true"
-        android:padding="10dp"
-        app:srcCompat="@drawable/ic_baseline_close_24"
-        app:tint="@color/colorWhite" />
+        android:layout_width="50dp"
+        android:layout_height="5dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/customTeal" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/btn_close">
+        android:layout_marginTop="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingHorizontal="10dp">
 
-            <ImageView
+            <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/iv_product"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="240dp"
                 android:adjustViewBounds="true"
-                android:src="@drawable/product" />
-
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:textColor="@color/colorWhite"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                tools:text="Mangga" />
-
-            <TextView
-                android:id="@+id/tv_category"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:textColor="@color/colorWhite"
-                tools:text="Eceran" />
+                android:background="@drawable/background_stroke_teal"
+                android:padding="4dp"
+                android:src="@drawable/product"
+                app:riv_corner_radius="4dp" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:background="@color/colorPrimaryDark" />
+                android:layout_height="2dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginVertical="10dp"
+                android:background="@color/customTeal" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:text="LOKASI"
-                android:textColor="@color/colorWhite"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                tools:ignore="HardcodedText" />
+                android:background="@drawable/background_stroke_teal"
+                android:orientation="vertical"
+                android:padding="10dp">
 
-            <TextView
-                android:id="@+id/tv_address"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textColor="@color/colorBlack"
+                    tools:text="Nama Produk" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:textColor="@color/colorBlack"
+                    tools:text="Eceran" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginVertical="10dp"
+                android:background="@color/customTeal" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                app:drawableStartCompat="@drawable/ic_baseline_location_on_24"
-                app:drawableTint="@color/colorWhite"
-                android:drawablePadding="10dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:textColor="@color/colorWhite"
-                tools:text="Surabaya"
-                />
+                android:background="@drawable/background_stroke_teal"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="5dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Lokasi"
+                    android:textColor="@color/colorBlack"
+                    app:drawableEndCompat="@drawable/ic_baseline_location_on_24"
+                    app:drawableTint="@color/customGrayDark"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="Surabaya"
+                    android:textColor="@color/colorBlack"
+                    tools:ignore="HardcodedText" />
+
+            </LinearLayout>
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/map"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginTop="5dp" />
+                android:layout_height="240dp"
+                android:padding="4dp"
+                android:background="@drawable/background_stroke_teal"
+                android:layout_marginTop="10dp" />
 
         </LinearLayout>
     </ScrollView>
-</RelativeLayout>
+</LinearLayout>

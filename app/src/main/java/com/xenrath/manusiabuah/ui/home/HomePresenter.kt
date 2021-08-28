@@ -1,7 +1,6 @@
 package com.xenrath.manusiabuah.ui.home
 
-import com.xenrath.manusiabuah.data.ResponseProduct
-import com.xenrath.manusiabuah.data.database.model.ResponseProductList
+import com.xenrath.manusiabuah.data.model.product.ResponseProductList
 import com.xenrath.manusiabuah.network.ApiService
 import retrofit2.Call
 import retrofit2.Callback
@@ -10,7 +9,7 @@ import retrofit2.Response
 class HomePresenter(val view: HomeContract.View): HomeContract.Presenter {
 
     override fun getProduct(user_id: String, category: String) {
-        view.onLoading(true)
+        view.onLoading(true, "Menampilkan produk...")
         ApiService.endPoint.getProductForSale(user_id, category).enqueue(object : Callback<ResponseProductList> {
             override fun onResponse(
                 call: Call<ResponseProductList>,
@@ -31,20 +30,20 @@ class HomePresenter(val view: HomeContract.View): HomeContract.Presenter {
     }
 
     override fun searchProduct(keyword: String) {
-        view.onLoading(true)
-        ApiService.endPoint.searchProduct(keyword).enqueue(object : Callback<ResponseProduct> {
+        view.onLoading(true, "Mencari produk...")
+        ApiService.endPoint.searchProduct(keyword).enqueue(object : Callback<ResponseProductList> {
             override fun onResponse(
-                call: Call<ResponseProduct>,
-                response: Response<ResponseProduct>
+                call: Call<ResponseProductList>,
+                response: Response<ResponseProductList>
             ) {
                 view.onLoading(false)
                 if (response.isSuccessful) {
-                    val responseProduct: ResponseProduct? = response.body()
-                    view.onResultSearch(responseProduct!!)
+                    val responseProductList: ResponseProductList? = response.body()
+                    view.onResultSearch(responseProductList!!)
                 }
             }
 
-            override fun onFailure(call: Call<ResponseProduct>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseProductList>, t: Throwable) {
                 view.onLoading(false)
             }
         })

@@ -1,155 +1,390 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.notification.NotificationFragment"
-    >
+    tools:context=".ui.notification.NotificationFragment">
 
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-        <LinearLayout
+        <include
+            layout="@layout/toolbar_custom"
             android:layout_width="match_parent"
-            android:background="#00BCD4"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#4DD0E1"
-            />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
         android:orientation="vertical"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="20dp"
-        >
+        android:paddingHorizontal="10dp">
 
-        <androidx.cardview.widget.CardView
+        <View
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            app:cardCornerRadius="5dp"
-            >
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/customGray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Tawaran"
+                android:textColor="@color/colorBlack"
+                tools:ignore="HardcodedText" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/cvSearch"
-                android:orientation="horizontal"
-                android:background="#B2DFDB"
-                >
+                android:layout_marginTop="5dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
 
-                <LinearLayout
+                <RelativeLayout
+                    android:id="@+id/btn_my_bargain"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    android:orientation="horizontal"
-                    >
+                    android:background="@drawable/background_stroke_teal"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/btn_offer"
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/layout_count_my_bargain"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/background_stroke_info"
+                            android:gravity="center"
+                            android:visibility="gone"
+                            tools:ignore="UselessParent">
+
+                            <TextView
+                                android:id="@+id/tv_count_my_bargain"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_medium"
+                                android:maxLength="2"
+                                android:text="1"
+                                android:textColor="@color/colorBlack"
+                                tools:ignore="HardcodedText" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/fragmentNotification"
-                        android:gravity="center"
-                        android:text="Tawaran"
-                        android:textColor="@color/colorBlack"
-                        tools:ignore="HardcodedText" />
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:orientation="vertical">
 
-                </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="20dp"
+                            tools:ignore="UseCompoundDrawables,UselessParent">
 
-                <View
-                    android:layout_width="2dp"
-                    android:layout_height="wrap_content"
-                    android:background="#80DEEA" />
+                            <ImageView
+                                android:layout_width="42dp"
+                                android:layout_height="42dp"
+                                app:srcCompat="@drawable/ic_handshake_regular"
+                                app:tint="@color/customGrayDark" />
 
-                <LinearLayout
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins"
+                                android:gravity="center"
+                                android:importantForAutofill="no"
+                                android:text="Tawaran Saya"
+                                android:textColor="@color/colorBlack"
+                                tools:ignore="HardcodedText" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/btn_manage_bargain"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
                     android:layout_weight="1"
-                    android:orientation="horizontal"
-                    >
+                    android:background="@drawable/background_stroke_teal"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/btn_offer_history"
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/layout_count_manage_bargain"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/background_stroke_info"
+                            android:gravity="center"
+                            android:visibility="gone"
+                            tools:ignore="UselessParent">
+
+                            <TextView
+                                android:id="@+id/tv_count_manage_bargain"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_medium"
+                                android:maxLength="2"
+                                android:text="1"
+                                android:textColor="@color/colorBlack"
+                                tools:ignore="HardcodedText" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="Riwayat Tawaran"
-                        android:textColor="@color/colorBlack"
-                        tools:ignore="HardcodedText" />
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:orientation="vertical">
 
-                </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="20dp"
+                            tools:ignore="UseCompoundDrawables,UselessParent">
+
+                            <ImageView
+                                android:layout_width="42dp"
+                                android:layout_height="42dp"
+                                app:srcCompat="@drawable/ic_handshake_regular"
+                                app:tint="@color/customGrayDark" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins"
+                                android:gravity="center"
+                                android:importantForAutofill="no"
+                                android:text="Kelola Tawaran"
+                                android:textColor="@color/colorBlack"
+                                tools:ignore="HardcodedText" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
 
             </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
+        </LinearLayout>
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipe_refresh"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/customGray" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:layout_marginTop="20dp"
-            >
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
 
-            <ScrollView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Pembelian"
+                android:textColor="@color/colorBlack"
+                tools:ignore="HardcodedText" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:ignore="UselessParent">
+                android:layout_marginTop="5dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    >
+                <RelativeLayout
+                    android:id="@+id/btn_my_purchase"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_stroke_teal"
+                    android:orientation="vertical">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_waiting"
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/layout_count_my_purchase"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/background_stroke_info"
+                            android:gravity="center"
+                            android:visibility="gone"
+                            tools:ignore="UselessParent">
+
+                            <TextView
+                                android:id="@+id/tv_count_my_purchase"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_medium"
+                                android:maxLength="2"
+                                android:text="1"
+                                android:textColor="@color/colorBlack"
+                                tools:ignore="HardcodedText" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        tools:listitem="@layout/adapter_notification"
-                        tools:itemCount="10"
-                        />
+                        android:layout_centerInParent="true"
+                        android:orientation="vertical">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_history"
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="20dp"
+                            tools:ignore="UseCompoundDrawables,UselessParent">
+
+                            <ImageView
+                                android:layout_width="42dp"
+                                android:layout_height="42dp"
+                                app:srcCompat="@drawable/ic_baseline_shopping_cart_24"
+                                app:tint="@color/customGrayDark" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins"
+                                android:gravity="center"
+                                android:importantForAutofill="no"
+                                android:text="Pembelian Saya"
+                                android:textColor="@color/colorBlack"
+                                tools:ignore="HardcodedText" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/btn_manage_purchase"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_stroke_teal"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/layout_count_manage_purchase"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/background_stroke_info"
+                            android:gravity="center"
+                            android:visibility="gone"
+                            tools:ignore="UselessParent">
+
+                            <TextView
+                                android:id="@+id/tv_count_manage_purchase"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_medium"
+                                android:maxLength="2"
+                                android:text="99"
+                                android:textColor="@color/colorBlack"
+                                tools:ignore="HardcodedText" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        tools:listitem="@layout/adapter_notification_history"
-                        tools:itemCount="10"
-                        android:visibility="gone"
-                        />
+                        android:layout_centerInParent="true"
+                        android:orientation="vertical">
 
-                </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="20dp"
+                            tools:ignore="UseCompoundDrawables,UselessParent">
 
-            </ScrollView>
+                            <ImageView
+                                android:layout_width="42dp"
+                                android:layout_height="42dp"
+                                app:srcCompat="@drawable/ic_baseline_shopping_cart_24"
+                                app:tint="@color/customGrayDark" />
 
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins"
+                                android:gravity="center"
+                                android:importantForAutofill="no"
+                                android:text="Kelola Pembelian"
+                                android:textColor="@color/colorBlack"
+                                tools:ignore="HardcodedText" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
-
-    <!-- Circular progress indicator -->
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        style="@style/Widget.App.CircularProgressIndicator"
-        android:indeterminate="true"
-        android:visibility="gone"
-        />
 
 </RelativeLayout>

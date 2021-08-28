@@ -3,6 +3,16 @@
     <string name="title_home">Home</string>
     <string name="title_profile">Profile</string>
     <string name="title_notifications">Notifications</string>
+    <string name="evidence_of_transfer"><u>Lihat bukti pembayaran</u>.</string>
+    <string name="detail_user"><u>Lihat detail petani</u>.</string>
+
+    <!--  Sweet Alert  -->
+    <string name="LOADING">Loading…</string>
+    <string name="sweetalert_name">SweetAlertDialog</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_default_title">Here\'s a message!</string>
+    <string name="dialog_ok">OK</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_product_maps">Map</string>

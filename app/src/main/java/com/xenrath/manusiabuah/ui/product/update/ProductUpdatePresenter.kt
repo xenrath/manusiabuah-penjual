@@ -1,8 +1,10 @@
 package com.xenrath.manusiabuah.ui.product.update
 
-import com.xenrath.manusiabuah.data.database.model.ResponseProductDetail
-import com.xenrath.manusiabuah.data.database.model.ResponseProductUpdate
+import com.xenrath.manusiabuah.data.model.product.ResponseProductDetail
+import com.xenrath.manusiabuah.data.model.product.ResponseProductUpdate
+import com.xenrath.manusiabuah.data.model.rajaongkir.territory.ResponseRajaongkirTerritory
 import com.xenrath.manusiabuah.network.ApiService
+import com.xenrath.manusiabuah.network.ApiServiceRajaOngkir
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -13,7 +15,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
 
-class ProductUpdatePresenter(val view: ProductUpdateContract.View): ProductUpdateContract.Presenter {
+class ProductUpdatePresenter(val view: ProductUpdateContract.View) :
+    ProductUpdateContract.Presenter {
 
     init {
         view.initActivity()
@@ -21,7 +24,7 @@ class ProductUpdatePresenter(val view: ProductUpdateContract.View): ProductUpdat
     }
 
     override fun getDetail(id: Long) {
-        view.onLoading(true)
+        view.onLoading(true, "Menampilkan data produk...")
         ApiService.endPoint.getProductDetail(id).enqueue(object :
             Callback<ResponseProductDetail> {
             override fun onResponse(
@@ -41,12 +44,62 @@ class ProductUpdatePresenter(val view: ProductUpdateContract.View): ProductUpdat
         })
     }
 
+    override fun getProvince(key: String) {
+        view.onLoadingTerritory(true)
+        ApiServiceRajaOngkir.endPoint.getProvince(key)
+            .enqueue(object : Callback<ResponseRajaongkirTerritory> {
+                override fun onResponse(
+                    call: Call<ResponseRajaongkirTerritory>,
+                    responseRajaongkir: Response<ResponseRajaongkirTerritory>
+                ) {
+                    view.onLoadingTerritory(false)
+                    if (responseRajaongkir.isSuccessful) {
+                        val responseRajaongkirTerritory: ResponseRajaongkirTerritory? =
+                            responseRajaongkir.body()
+                        view.onResultProvince(responseRajaongkirTerritory!!)
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseRajaongkirTerritory>, t: Throwable) {
+                    view.onLoading(false)
+                }
+
+            })
+    }
+
+    override fun getCity(key: String, id: String) {
+        view.onLoadingTerritory(true)
+        ApiServiceRajaOngkir.endPoint.getCity(key, id)
+            .enqueue(object : Callback<ResponseRajaongkirTerritory> {
+                override fun onResponse(
+                    call: Call<ResponseRajaongkirTerritory>,
+                    responseRajaongkir: Response<ResponseRajaongkirTerritory>
+                ) {
+                    view.onLoadingTerritory(false)
+                    if (responseRajaongkir.isSuccessful) {
+                        val responseRajaongkirTerritory: ResponseRajaongkirTerritory? = responseRajaongkir.body()
+                        view.onResultCity(responseRajaongkirTerritory!!)
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseRajaongkirTerritory>, t: Throwable) {
+                    view.onLoading(false)
+                }
+
+            })
+    }
+
     override fun updateProduct(
         id: Long,
         name: String,
         price: String,
         description: String,
         address: String,
+        province_id: String,
+        province_name: String,
+        city_id: String,
+        city_name: String,
+        postal_code: String,
         latitude: String,
         longitude: String,
         image: File?,
@@ -55,7 +108,7 @@ class ProductUpdatePresenter(val view: ProductUpdateContract.View): ProductUpdat
         val requestBody: RequestBody
         val multipartBody: MultipartBody.Part
 
-        if (image != null){
+        if (image != null) {
             requestBody = image.asRequestBody("image/*".toMediaTypeOrNull())
             multipartBody = MultipartBody.Part.createFormData("image", image.name, requestBody)
         } else {
@@ -63,13 +116,18 @@ class ProductUpdatePresenter(val view: ProductUpdateContract.View): ProductUpdat
             multipartBody = MultipartBody.Part.createFormData("image", "", requestBody)
         }
 
-        view.onLoading(true)
+        view.onLoading(true, "Menyimpan perubahan...")
         ApiService.endPoint.updateProduct(
             id,
             name,
             price,
             description,
             address,
+            province_id,
+            province_name,
+            city_id,
+            city_name,
+            postal_code,
             latitude,
             longitude,
             multipartBody,

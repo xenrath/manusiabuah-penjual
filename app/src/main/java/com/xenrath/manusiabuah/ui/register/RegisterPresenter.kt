@@ -1,14 +1,15 @@
 package com.xenrath.manusiabuah.ui.register
 
-import com.xenrath.manusiabuah.data.ResponseLogin
+import com.xenrath.manusiabuah.data.model.user.ResponseUser
 import com.xenrath.manusiabuah.network.ApiService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RegisterPresenter(val view: RegisterContract.View): RegisterContract.Presenter {
+class RegisterPresenter(val view: RegisterContract.View) : RegisterContract.Presenter {
 
     init {
+        view.initActivity()
         view.initListener()
     }
 
@@ -20,7 +21,7 @@ class RegisterPresenter(val view: RegisterContract.View): RegisterContract.Prese
         phone: String,
         level: String
     ) {
-        view.onLoading(true)
+        view.onLoading(true, "Melakukan pendaftaran...")
         ApiService.endPoint.registerSeller(
             name,
             email,
@@ -28,22 +29,21 @@ class RegisterPresenter(val view: RegisterContract.View): RegisterContract.Prese
             password_confirmation,
             phone,
             level
-        ).enqueue(object : Callback<ResponseLogin>{
+        ).enqueue(object : Callback<ResponseUser> {
             override fun onResponse(
-                call: Call<ResponseLogin>,
-                response: Response<ResponseLogin>
+                call: Call<ResponseUser>,
+                response: Response<ResponseUser>
             ) {
                 view.onLoading(false)
                 if (response.isSuccessful) {
-                    val responseLogin: ResponseLogin? = response.body()
-                    view.onResult(responseLogin!!)
+                    val responseUser: ResponseUser? = response.body()
+                    view.onResult(responseUser!!)
                 }
             }
 
-            override fun onFailure(call: Call<ResponseLogin>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseUser>, t: Throwable) {
                 view.onLoading(true)
             }
-
         })
     }
 }

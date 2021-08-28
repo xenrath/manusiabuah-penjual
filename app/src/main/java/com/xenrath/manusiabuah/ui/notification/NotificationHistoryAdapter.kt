@@ -5,14 +5,11 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.xenrath.manusiabuah.R
-import com.xenrath.manusiabuah.data.Constant
-import com.xenrath.manusiabuah.data.database.model.DataBargain
+import com.xenrath.manusiabuah.data.model.bargain.DataBargain
 
 class NotificationHistoryAdapter(
     var context: Context,

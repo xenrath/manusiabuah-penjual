@@ -4,8 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -15,77 +15,75 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.xenrath.manusiabuah.R
-import com.xenrath.manusiabuah.data.Constant
 import com.xenrath.manusiabuah.data.database.PrefManager
-import com.xenrath.manusiabuah.data.database.model.DataProduct
-import com.xenrath.manusiabuah.data.database.model.ResponseProductList
-import com.xenrath.manusiabuah.data.database.model.ResponseProductUpdate
+import com.xenrath.manusiabuah.data.model.product.DataProduct
+import com.xenrath.manusiabuah.data.model.product.ResponseProductList
+import com.xenrath.manusiabuah.data.model.product.ResponseProductUpdate
 import com.xenrath.manusiabuah.ui.product.create.ProductCreateActivity
 import com.xenrath.manusiabuah.ui.product.update.ProductUpdateActivity
 import com.xenrath.manusiabuah.utils.GlideHelper
 import com.xenrath.manusiabuah.utils.MapsHelper
+import com.xenrath.manusiabuah.utils.sweetalert.SweetAlertDialog
 import kotlinx.android.synthetic.main.activity_my_product.*
-import kotlinx.android.synthetic.main.content_my_product.*
 import kotlinx.android.synthetic.main.dialog_product.view.*
+import kotlinx.android.synthetic.main.toolbar_custom.*
 
 class ProductActivity : AppCompatActivity(), ProductContract.View, OnMapReadyCallback {
 
     lateinit var prefManager: PrefManager
     lateinit var presenter: ProductPresenter
-    private lateinit var productAdapter: ProductAdapter
     lateinit var product: DataProduct
-
-    private lateinit var userId: String
+    private lateinit var productAdapter: ProductAdapter
+    private lateinit var sLoading: SweetAlertDialog
+    private lateinit var sSuccess: SweetAlertDialog
+    private lateinit var sAlert: SweetAlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_product)
 
-        setSupportActionBar(toolbar)
-
         prefManager = PrefManager(this)
         presenter = ProductPresenter(this)
-
-        userId = prefManager.prefId.toString()
     }
 
     override fun onStart() {
         super.onStart()
-        presenter.getProduct(userId)
+        presenter.getProduct(prefManager.prefId.toString())
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        finish()
-        return super.onSupportNavigateUp()
-    }
-
+    @SuppressLint("SetTextI18n")
     override fun initActivity() {
-        supportActionBar!!.title = "Produk Saya"
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        tv_title.text = "Produk Saya"
+
+        sLoading = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
+        sSuccess = SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE).setTitleText("Berhasil")
+        sAlert = SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE).setTitleText("Perhatian!")
 
         MapsHelper.permissionMap(this, this)
-    }
 
-    override fun initListener() {
         val layoutManager = LinearLayoutManager(applicationContext)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
 
         productAdapter = ProductAdapter(this, arrayListOf())
-        {
-            dataProduct: DataProduct, position: Int, type: String ->
+        { dataProduct: DataProduct, position: Int, type: String ->
             product = dataProduct
             when (type) {
                 "update" -> startActivity(Intent(this, ProductUpdateActivity::class.java))
-                "delete" -> showDialogDelete(dataProduct, position)
+                "delete" -> showAlertDelete(dataProduct, position)
                 "detail" -> showDialogDetail(dataProduct, position)
             }
         }
 
         rv_product.adapter = productAdapter
         rv_product.layoutManager = layoutManager
+    }
 
-        srl_myproduct.setOnRefreshListener {
-            presenter.getProduct(userId)
+    override fun initListener() {
+        iv_back.setOnClickListener {
+            finish()
+        }
+        iv_help.setOnClickListener {
+
         }
 
         fab.setOnClickListener {
@@ -93,35 +91,51 @@ class ProductActivity : AppCompatActivity(), ProductContract.View, OnMapReadyCal
         }
     }
 
-    override fun onLoading(loading: Boolean) {
-        when(loading) {
-            true -> srl_myproduct.isRefreshing = true
-            false -> srl_myproduct.isRefreshing = false
+    override fun onLoading(loading: Boolean, message: String?) {
+        when (loading) {
+            true -> sLoading.setTitleText(message).show()
+            false -> sLoading.dismiss()
         }
     }
 
     override fun onResult(resultProductList: ResponseProductList) {
-        val dataProduct: List<DataProduct> = resultProductList.dataProduct
-        productAdapter.setData(dataProduct)
+        val products: List<DataProduct> = resultProductList.products!!
+        if (products.isEmpty()) {
+            rv_product.visibility = View.GONE
+            layout_empty_product.visibility = View.VISIBLE
+        } else {
+            rv_product.visibility = View.VISIBLE
+            layout_empty_product.visibility = View.GONE
+            productAdapter.setData(products)
+        }
     }
 
     override fun onResultDelete(responseProductUpdate: ResponseProductUpdate) {
-        showMessage(responseProductUpdate.message)
+        sSuccess
+            .setContentText("Produk berhasil dihapus")
+            .setConfirmText("OK")
+            .setConfirmClickListener {
+                it.dismissWithAnimation()
+                finish()
+            }
+            .show()
     }
 
-    override fun showDialogDelete(dataProduct: DataProduct, position: Int) {
-        val dialog = AlertDialog.Builder(this)
-        dialog.setTitle("Konfirmasi")
-        dialog.setMessage("Hapus ${product.name}?")
-        dialog.setPositiveButton("Hapus") { dialog, _ ->
-            presenter.deleteProduct(Constant.PRODUCT_ID)
-            productAdapter.removeProduct(position)
-            dialog.dismiss()
-        }
-        dialog.setNegativeButton("Batal") { dialog, _ ->
-            dialog.dismiss()
-        }
-        dialog.show()
+    override fun showAlertDelete(dataProduct: DataProduct, position: Int) {
+        sAlert
+            .setContentText("Yakin enghapus produk?")
+            .setConfirmText("Hapus")
+            .setConfirmClickListener {
+                presenter.deleteProduct(dataProduct.id!!)
+                productAdapter.removeProduct(position)
+                it.dismissWithAnimation()
+            }
+            .setCancelText("Batal")
+            .setCancelClickListener {
+                it.dismissWithAnimation()
+            }
+            .show()
+        sAlert.setCancelable(true)
     }
 
     @SuppressLint("InflateParams")
@@ -132,18 +146,12 @@ class ProductActivity : AppCompatActivity(), ProductContract.View, OnMapReadyCal
         GlideHelper.setImage(applicationContext, dataProduct.image!!, view.iv_product)
 
         view.tv_name.text = dataProduct.name
-        view.tv_category.text = dataProduct.name
-        view.tv_address.text = dataProduct.name
+        view.tv_address.text = dataProduct.address
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        view.btn_close.setOnClickListener {
-            supportFragmentManager.beginTransaction().remove(mapFragment).commit()
-            dialog.dismiss()
-        }
-
-        dialog.setCancelable(false)
+        dialog.setCancelable(true)
         dialog.setContentView(view)
         dialog.show()
     }

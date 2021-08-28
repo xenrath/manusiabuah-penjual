@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.xenrath.manusiabuah.R
 import com.xenrath.manusiabuah.data.Constant
-import com.xenrath.manusiabuah.data.database.model.DataBargain
+import com.xenrath.manusiabuah.data.model.bargain.DataBargain
 
 class NotificationAdapter(
     var context: Context,
@@ -33,8 +33,8 @@ class NotificationAdapter(
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val bargain = bargain[position]
-        holder.tvUser.text = bargain.user_id
-        holder.tvProduct.text = bargain.product_id
+//        holder.tvUser.text = bargain.user_name
+//        holder.tvProduct.text = bargain.product_name
         holder.tvPrice.text = bargain.price
         holder.tvPriceOffer.text = bargain.price_offer
         holder.btnReject.setOnClickListener {

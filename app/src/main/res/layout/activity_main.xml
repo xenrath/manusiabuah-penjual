@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity"
-    android:background="#ECECEC"
+    tools:context=".ui.main.MainActivity"
     >
 
     <FrameLayout
@@ -22,16 +21,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="?android:attr/windowBackground"
-        app:menu="@menu/bottom_nav_menu"
-        />
-
-    <ProgressBar
-        android:id="@+id/pb_product"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone"
-        />
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/background_stroke_teal"
+        android:padding="2dp"
+        app:elevation="0dp"
+        app:itemTextAppearanceActive="@style/Widget.BottomNavigationView"
+        app:itemTextAppearanceInactive="@style/Widget.BottomNavigationView"
+        app:menu="@menu/bottom_nav_menu" />
 
 </RelativeLayout>

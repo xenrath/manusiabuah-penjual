@@ -1,6 +1,7 @@
 package com.xenrath.manusiabuah.ui.register
 
-import com.xenrath.manusiabuah.data.ResponseLogin
+import android.widget.EditText
+import com.xenrath.manusiabuah.data.model.user.ResponseUser
 
 interface RegisterContract {
 
@@ -16,10 +17,13 @@ interface RegisterContract {
     }
 
     interface View {
+        fun initActivity()
         fun initListener()
-        fun onLoading(loading: Boolean)
-        fun onResult(responseLogin: ResponseLogin)
-        fun showMessage(message: String)
+        fun onLoading(loading: Boolean, message: String? = "Loading")
+        fun onResult(responseUser: ResponseUser)
+        fun showAlertSuccess(message: String)
+        fun showAlertError(message: String)
+        fun validationError(editText: EditText, message: String)
     }
 
 }

@@ -1,7 +1,7 @@
 package com.xenrath.manusiabuah.ui.login
 
-import com.xenrath.manusiabuah.data.DataUser
-import com.xenrath.manusiabuah.data.ResponseLogin
+import com.xenrath.manusiabuah.data.model.user.DataUser
+import com.xenrath.manusiabuah.data.model.user.ResponseUser
 import com.xenrath.manusiabuah.data.database.PrefManager
 
 interface LoginContract {
@@ -14,9 +14,10 @@ interface LoginContract {
     interface View {
         fun initActivity()
         fun initListener()
-        fun onLoading(loading: Boolean)
-        fun onResult(responseLogin: ResponseLogin)
-        fun showMessage(message: String)
+        fun onLoading(loading: Boolean, message: String? = "Loading")
+        fun onResult(responseUser: ResponseUser)
+        fun showAlertSuccess(message: String)
+        fun showAlertError(message: String)
     }
 
 }

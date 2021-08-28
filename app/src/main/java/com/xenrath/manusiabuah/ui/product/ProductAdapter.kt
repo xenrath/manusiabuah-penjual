@@ -5,29 +5,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.xenrath.manusiabuah.R
 import com.xenrath.manusiabuah.data.Constant
-import com.xenrath.manusiabuah.data.database.model.DataProduct
+import com.xenrath.manusiabuah.data.model.product.DataProduct
 import com.xenrath.manusiabuah.utils.CurrencyHelper
 import com.xenrath.manusiabuah.utils.GlideHelper
 
 class ProductAdapter(
     val context: Context,
-    var dataProduct: ArrayList<DataProduct>,
+    var product: ArrayList<DataProduct>,
     val clickListener: (DataProduct, Int, String) -> Unit
     ): RecyclerView.Adapter<ProductAdapter.Holder>() {
 
     class Holder(view: View): RecyclerView.ViewHolder(view) {
+        val ivImage = view.findViewById<ImageView>(R.id.iv_image)!!
         val tvName = view.findViewById<TextView>(R.id.tv_name)!!
         val tvPrice = view.findViewById<TextView>(R.id.tv_price)!!
-        val tvAddress = view.findViewById<TextView>(R.id.tv_address)!!
-        val imgProduct = view.findViewById<ImageView>(R.id.iv_product)!!
-        val cvProduct = view.findViewById<CardView>(R.id.cv_product)!!
-        val tvOption = view.findViewById<TextView>(R.id.tv_option)!!
+        val tvStock = view.findViewById<TextView>(R.id.tv_stock)!!
+        val layoutProduct = view.findViewById<LinearLayout>(R.id.layout_product)!!
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -36,17 +35,18 @@ class ProductAdapter(
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val product = dataProduct[position]
+        val product = product[position]
+
+        GlideHelper.setImage(context, product.image!!, holder.ivImage)
         holder.tvName.text = product.name
         holder.tvPrice.text = CurrencyHelper.changeToRupiah(product.price.toString())
-        holder.tvAddress.text = product.address
-        GlideHelper.setImage(context, product.image!!, holder.imgProduct)
-        holder.cvProduct.setOnClickListener {
-            Constant.PRODUCT_ID = dataProduct[position].id!!
-            clickListener(dataProduct[position], position, "detail")
-        }
-        holder.tvOption.setOnClickListener {
-            val popupMenu = PopupMenu(context, holder.tvOption)
+        holder.tvStock.text = product.stock
+//        holder.cvProduct.setOnClickListener {
+//            Constant.PRODUCT_ID = dataProduct[position].id!!
+//            clickListener(dataProduct[position], position, "detail")
+//        }
+        holder.layoutProduct.setOnClickListener {
+            val popupMenu = PopupMenu(context, holder.layoutProduct)
             popupMenu.inflate(R.menu.menu_options)
             popupMenu.setOnMenuItemClickListener {
                 when (it.itemId) {
@@ -66,19 +66,19 @@ class ProductAdapter(
     }
 
     override fun getItemCount(): Int {
-        return dataProduct.size
+        return product.size
     }
 
     fun setData(newDataProduct: List<DataProduct>) {
-        dataProduct.clear()
-        dataProduct.addAll(newDataProduct)
+        product.clear()
+        product.addAll(newDataProduct)
         notifyDataSetChanged()
     }
 
     fun removeProduct(position: Int) {
-        dataProduct.removeAt(position)
+        product.removeAt(position)
         notifyItemRemoved(position)
-        notifyItemRangeChanged(position, dataProduct.size)
+        notifyItemRangeChanged(position, product.size)
     }
 
 }

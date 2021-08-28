@@ -12,8 +12,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
 
     <application
@@ -39,25 +38,32 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <activity
-            android:name=".ui.product.ProductMapsActivity"
+            android:name=".ui.product.maps.ProductMapsActivity"
             android:label="@string/title_activity_product_maps" />
         <activity android:name=".ui.product.create.ProductCreateActivity" />
         <activity android:name=".ui.product.update.ProductUpdateActivity" />
         <activity android:name=".ui.product.ProductActivity" />
         <activity android:name=".ui.HistoryActivity" />
-        <activity android:name=".ui.product.detail.DetailProductActivity" />
+        <activity android:name=".ui.home.detail.HomeDetailActivity" />
         <activity android:name=".ui.register.RegisterActivity" />
         <activity android:name=".ui.AuthActivity" />
         <activity android:name=".ui.login.LoginActivity" />
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.bargain.MyBargainActivity" />
+        <activity android:name=".ui.manage.bargain.ManageBargainActivity" />
+        <activity android:name=".ui.manage.bargain.detail.ManageBargainDetailActivity" />
+        <activity android:name=".ui.bargain.detail.MyBargainDetailActivity" />
     </application>
 
 </manifest>
