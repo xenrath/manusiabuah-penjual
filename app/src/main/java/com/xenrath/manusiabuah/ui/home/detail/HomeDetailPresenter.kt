@@ -1,7 +1,7 @@
 package com.xenrath.manusiabuah.ui.home.detail
 
 import com.xenrath.manusiabuah.data.model.product.ResponseProductDetail
-import com.xenrath.manusiabuah.data.model.bargain.ResponseBargainUpdate
+import com.xenrath.manusiabuah.data.model.offer.ResponseOfferUpdate
 import com.xenrath.manusiabuah.network.ApiService
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,7 +16,7 @@ class HomeDetailPresenter(val view: HomeDetailContract.View): HomeDetailContract
 
     override fun getDetail(id: Long) {
         view.onLoadingDetail(true, "Menampilkan detail produk...")
-        ApiService.endPoint.getProductDetail(id).enqueue(object : Callback<ResponseProductDetail> {
+        ApiService.endPoint.productDetail(id).enqueue(object : Callback<ResponseProductDetail> {
             override fun onResponse(
                 call: Call<ResponseProductDetail>,
                 response: Response<ResponseProductDetail>
@@ -51,19 +51,19 @@ class HomeDetailPresenter(val view: HomeDetailContract.View): HomeDetailContract
             price_offer,
             total_item,
             status
-        ).enqueue(object : Callback<ResponseBargainUpdate> {
+        ).enqueue(object : Callback<ResponseOfferUpdate> {
             override fun onResponse(
-                call: Call<ResponseBargainUpdate>,
-                response: Response<ResponseBargainUpdate>
+                call: Call<ResponseOfferUpdate>,
+                response: Response<ResponseOfferUpdate>
             ) {
                 view.onLoadingBottomSheet(false)
                 if (response.isSuccessful) {
-                    val responseBargainUpdate: ResponseBargainUpdate? = response.body()
-                    view.onResultBargain(responseBargainUpdate!!)
+                    val responseOfferUpdate: ResponseOfferUpdate? = response.body()
+                    view.onResultBargain(responseOfferUpdate!!)
                 }
             }
 
-            override fun onFailure(call: Call<ResponseBargainUpdate>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseOfferUpdate>, t: Throwable) {
                 view.onLoadingBottomSheet(false)
             }
 

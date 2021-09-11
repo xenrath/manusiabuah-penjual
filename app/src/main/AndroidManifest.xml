@@ -12,7 +12,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
 
     <application
@@ -25,7 +26,11 @@
         android:theme="@style/Theme.ManusiaBuah"
         android:usesCleartextTraffic="true"
         tools:targetApi="n">
-        <activity android:name=".ui.delivery.DeliveryActivity" />
+        <activity android:name=".ui.account.update.AccountUpdateActivity"></activity>
+        <activity android:name=".ui.account.create.AccountCreateActivity" />
+        <activity android:name=".ui.account.AccountActivity" />
+        <activity android:name=".ui.payment.PaymentActivity" />
+        <activity android:name=".ui.order.OrderActivity" />
         <activity android:name=".ui.profile.ProfileUpdateActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -42,12 +47,13 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity
-            android:name=".ui.product.maps.ProductMapsActivity"
-            android:label="@string/title_activity_product_maps" />
-        <activity android:name=".ui.product.create.ProductCreateActivity" />
-        <activity android:name=".ui.product.update.ProductUpdateActivity" />
-        <activity android:name=".ui.product.ProductActivity" />
+        <activity android:name=".ui.offer.OfferActivity" />
+        <activity android:name=".ui.manage.offer.OfferManageActivity" />
+        <activity android:name=".ui.manage.offer.detail.OfferManageDetailActivity" />
+        <activity android:name=".ui.offer.detail.OfferDetailActivity" />
+        <activity android:name=".ui.home.tabs.list.create.ProductCreateActivity" />
+        <activity android:name=".ui.home.tabs.list.update.ProductUpdateActivity" />
+        <activity android:name=".ui.home.tabs.list.maps.ProductMapsActivity" />
         <activity android:name=".ui.HistoryActivity" />
         <activity android:name=".ui.home.detail.HomeDetailActivity" />
         <activity android:name=".ui.register.RegisterActivity" />
@@ -60,10 +66,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.bargain.MyBargainActivity" />
-        <activity android:name=".ui.manage.bargain.ManageBargainActivity" />
-        <activity android:name=".ui.manage.bargain.detail.ManageBargainDetailActivity" />
-        <activity android:name=".ui.bargain.detail.MyBargainDetailActivity" />
     </application>
 
 </manifest>

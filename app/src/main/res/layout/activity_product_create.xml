@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.product.create.ProductCreateActivity">
+    tools:context=".ui.home.tabs.list.create.ProductCreateActivity">
 
     <LinearLayout
         android:id="@+id/toolbar"
@@ -40,13 +40,14 @@
                 android:fontFamily="@font/poppins_medium"
                 android:text="Nama Produk *"
                 android:textColor="@color/colorBlack"
+                android:textSize="12sp"
                 tools:ignore="HardcodedText" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_stroke_teal"
-                android:padding="12dp">
+                android:padding="10dp">
 
                 <EditText
                     android:id="@+id/et_name"
@@ -58,7 +59,7 @@
                     android:importantForAutofill="no"
                     android:inputType="text"
                     android:textColor="@color/colorBlack"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     tools:ignore="HardcodedText" />
 
             </LinearLayout>
@@ -75,7 +76,7 @@
                     android:fontFamily="@font/poppins_medium"
                     android:text="Harga Produk *"
                     android:textColor="@color/colorBlack"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     tools:ignore="HardcodedText" />
 
                 <TextView
@@ -83,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_light"
                     android:text=" / kg"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     tools:ignore="HardcodedText" />
 
             </LinearLayout>
@@ -92,7 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_stroke_teal"
-                android:padding="12dp">
+                android:padding="10dp">
 
                 <EditText
                     android:id="@+id/et_price"
@@ -104,7 +105,7 @@
                     android:importantForAutofill="no"
                     android:inputType="number"
                     android:textColor="@color/colorBlack"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     tools:ignore="HardcodedText" />
 
             </LinearLayout>
@@ -116,13 +117,14 @@
                 android:fontFamily="@font/poppins_medium"
                 android:text="Deskripsi *"
                 android:textColor="@color/colorBlack"
+                android:textSize="12sp"
                 tools:ignore="HardcodedText" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_stroke_teal"
-                android:padding="12dp">
+                android:padding="10dp">
 
                 <EditText
                     android:id="@+id/et_description"
@@ -137,7 +139,7 @@
                     android:lines="3"
                     android:padding="2dp"
                     android:textColor="@color/colorBlack"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     tools:ignore="HardcodedText" />
 
             </LinearLayout>
@@ -149,13 +151,14 @@
                 android:fontFamily="@font/poppins_medium"
                 android:text="Alamat *"
                 android:textColor="@color/colorBlack"
+                android:textSize="12sp"
                 tools:ignore="HardcodedText" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_stroke_teal"
-                android:padding="12dp">
+                android:padding="10dp">
 
                 <EditText
                     android:id="@+id/et_address"
@@ -170,7 +173,7 @@
                     android:lines="3"
                     android:padding="2dp"
                     android:textColor="@color/colorBlack"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     tools:ignore="HardcodedText" />
 
             </LinearLayout>
@@ -189,13 +192,14 @@
                     android:fontFamily="@font/poppins_medium"
                     android:text="Provinsi *"
                     android:textColor="@color/colorBlack"
+                    android:textSize="12sp"
                     tools:ignore="HardcodedText" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_stroke_teal"
-                    android:padding="12dp">
+                    android:padding="10dp">
 
                     <Spinner
                         android:id="@+id/spin_province"
@@ -220,13 +224,14 @@
                     android:fontFamily="@font/poppins_medium"
                     android:text="Kota/Kabupaten *"
                     android:textColor="@color/colorBlack"
+                    android:textSize="12sp"
                     tools:ignore="HardcodedText" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_stroke_teal"
-                    android:padding="12dp">
+                    android:padding="10dp">
 
                     <Spinner
                         android:id="@+id/spin_city"
@@ -250,13 +255,14 @@
                     android:fontFamily="@font/poppins_medium"
                     android:text="Kode POS"
                     android:textColor="@color/colorBlack"
+                    android:textSize="12sp"
                     tools:ignore="HardcodedText" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_stroke_teal"
-                    android:padding="12dp">
+                    android:padding="10dp">
 
                     <EditText
                         android:id="@+id/et_pos"
@@ -268,7 +274,7 @@
                         android:importantForAutofill="no"
                         android:inputType="none"
                         android:textColor="@color/colorBlack"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         tools:ignore="HardcodedText" />
 
                 </LinearLayout>
@@ -286,27 +292,17 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_location"
                 android:layout_width="wrap_content"
-                android:layout_height="38dp"
+                android:layout_height="32dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/background_stroke_teal"
-                android:drawablePadding="4dp"
                 android:fontFamily="@font/poppins"
                 android:paddingHorizontal="14dp"
                 android:text="Titik Lokasi"
                 android:textAllCaps="false"
                 android:textColor="@color/colorBlack"
-                app:drawableStartCompat="@drawable/ic_baseline_location_on_24"
-                app:drawableTint="@color/customGrayDark"
+                android:textSize="12sp"
                 tools:ignore="HardcodedText" />
-
-            <ProgressBar
-                android:id="@+id/pb_location"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/layout_location"
@@ -323,13 +319,14 @@
                     android:fontFamily="@font/poppins_medium"
                     android:text="Latitude, Longitude"
                     android:textColor="@color/colorBlack"
+                    android:textSize="12sp"
                     tools:ignore="HardcodedText" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_stroke_teal"
-                    android:padding="12dp">
+                    android:padding="10dp">
 
                     <TextView
                         android:id="@+id/et_location"
@@ -339,19 +336,28 @@
                         android:fontFamily="@font/poppins"
                         android:hint="Pilih Titik Lokasi"
                         android:textColor="@color/colorBlack"
+                        android:textSize="12sp"
                         tools:ignore="HardcodedText" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
+            <ProgressBar
+                android:id="@+id/pb_location"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:visibility="gone" />
+
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/iv_image"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/background_stroke_teal"
-                android:padding="4dp"
+                android:padding="2dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/img_add_image"
                 app:riv_corner_radius="4dp" />
@@ -363,13 +369,14 @@
                 android:fontFamily="@font/poppins_medium"
                 android:text="Stock *"
                 android:textColor="@color/colorBlack"
+                android:textSize="12sp"
                 tools:ignore="HardcodedText" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_stroke_teal"
-                android:padding="12dp">
+                android:padding="10dp">
 
                 <EditText
                     android:id="@+id/et_stock"
@@ -381,7 +388,7 @@
                     android:importantForAutofill="no"
                     android:inputType="number"
                     android:textColor="@color/colorBlack"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     tools:ignore="HardcodedText" />
 
             </LinearLayout>
@@ -389,12 +396,13 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_save"
                 android:layout_width="match_parent"
-                android:layout_height="46dp"
+                android:layout_height="42dp"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/button_primary"
                 android:fontFamily="@font/poppins_medium"
                 android:text="Simpan"
                 android:textColor="@color/colorWhite"
+                android:textSize="12sp"
                 tools:ignore="HardcodedText" />
 
         </LinearLayout>

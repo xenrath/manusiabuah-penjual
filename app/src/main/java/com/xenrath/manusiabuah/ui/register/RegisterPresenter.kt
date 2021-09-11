@@ -22,7 +22,7 @@ class RegisterPresenter(val view: RegisterContract.View) : RegisterContract.Pres
         level: String
     ) {
         view.onLoading(true, "Melakukan pendaftaran...")
-        ApiService.endPoint.registerSeller(
+        ApiService.endPoint.userRegister(
             name,
             email,
             password,

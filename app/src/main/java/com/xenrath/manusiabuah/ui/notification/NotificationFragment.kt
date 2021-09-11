@@ -13,10 +13,11 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import com.xenrath.manusiabuah.R
 import com.xenrath.manusiabuah.data.database.PrefManager
-import com.xenrath.manusiabuah.data.model.bargain.DataBargain
-import com.xenrath.manusiabuah.data.model.bargain.ResponseBargainList
-import com.xenrath.manusiabuah.ui.bargain.MyBargainActivity
-import com.xenrath.manusiabuah.ui.manage.bargain.ManageBargainActivity
+import com.xenrath.manusiabuah.data.model.offer.DataOffer
+import com.xenrath.manusiabuah.data.model.offer.ResponseOfferList
+import com.xenrath.manusiabuah.ui.offer.OfferActivity
+import com.xenrath.manusiabuah.ui.manage.offer.OfferManageActivity
+import com.xenrath.manusiabuah.ui.transaction.TransactionActivity
 import com.xenrath.manusiabuah.utils.sweetalert.SweetAlertDialog
 
 class NotificationFragment : Fragment(), NotificationContract.View {
@@ -27,22 +28,22 @@ class NotificationFragment : Fragment(), NotificationContract.View {
     lateinit var tvTitle: TextView
     private lateinit var ivBack: ImageView
 
-    lateinit var btnMyBargain: RelativeLayout
-    private lateinit var btnManageBargain: RelativeLayout
-    private lateinit var btnMyPurchase: RelativeLayout
-    private lateinit var btnManagePurchase: RelativeLayout
+    private lateinit var btnOffer: RelativeLayout
+    private lateinit var btnOfferManage: RelativeLayout
+    private lateinit var btnPurchase: RelativeLayout
+    private lateinit var btnPurchaseManage: RelativeLayout
 
-    private lateinit var layoutCountMyBargain: LinearLayout
-    private lateinit var layoutCountManageBargain: LinearLayout
-    private lateinit var layoutCountMyPurchase: LinearLayout
-    private lateinit var layoutCountManagePurchase: LinearLayout
+    private lateinit var layoutCountOffer: LinearLayout
+    private lateinit var layoutCountOfferManage: LinearLayout
+    private lateinit var layoutCountPurchase: LinearLayout
+    private lateinit var layoutCountPurchaseManage: LinearLayout
 
-    private lateinit var tvCountMyBargain: TextView
-    private lateinit var tvCountManageBargain: TextView
-    private lateinit var tvCountMyPurchase: TextView
-    private lateinit var tvCountManagePurchase: TextView
+    private lateinit var tvCountOffer: TextView
+    private lateinit var tvCountOfferManage: TextView
+    private lateinit var tvCountPurchase: TextView
+    private lateinit var tvCountPurchaseManage: TextView
 
-    lateinit var bargain: DataBargain
+    lateinit var offer: DataOffer
 
     private lateinit var sLoading: SweetAlertDialog
 
@@ -66,36 +67,36 @@ class NotificationFragment : Fragment(), NotificationContract.View {
         tvTitle = view.findViewById(R.id.tv_title)
         ivBack = view.findViewById(R.id.iv_back)
 
-        btnMyBargain = view.findViewById(R.id.btn_my_bargain)
-        btnManageBargain = view.findViewById(R.id.btn_manage_bargain)
-        btnMyPurchase = view.findViewById(R.id.btn_my_purchase)
-        btnManagePurchase = view.findViewById(R.id.btn_manage_purchase)
+        btnOffer = view.findViewById(R.id.btn_offer)
+        btnOfferManage = view.findViewById(R.id.btn_offer_manage)
+        btnPurchase = view.findViewById(R.id.btn_purchase)
+        btnPurchaseManage = view.findViewById(R.id.btn_purchase_manage)
 
-        layoutCountMyBargain = view.findViewById(R.id.layout_count_my_bargain)
-        layoutCountManageBargain = view.findViewById(R.id.layout_count_manage_bargain)
-        layoutCountMyPurchase = view.findViewById(R.id.layout_count_my_purchase)
-        layoutCountManagePurchase = view.findViewById(R.id.layout_count_manage_purchase)
+        layoutCountOffer = view.findViewById(R.id.layout_count_offer)
+        layoutCountOfferManage = view.findViewById(R.id.layout_count_offer_manage)
+        layoutCountPurchase = view.findViewById(R.id.layout_count_purchase)
+        layoutCountPurchaseManage = view.findViewById(R.id.layout_count_purchase_manage)
 
-        tvCountMyBargain = view.findViewById(R.id.tv_count_my_bargain)
-        tvCountManageBargain = view.findViewById(R.id.tv_count_manage_bargain)
-        tvCountMyPurchase = view.findViewById(R.id.tv_count_my_purchase)
-        tvCountManagePurchase = view.findViewById(R.id.tv_count_manage_purchase)
+        tvCountOffer = view.findViewById(R.id.tv_count_offer)
+        tvCountOfferManage = view.findViewById(R.id.tv_count_offer_manage)
+        tvCountPurchase = view.findViewById(R.id.tv_count_purchase)
+        tvCountPurchaseManage = view.findViewById(R.id.tv_count_purchase_manage)
 
         sLoading = SweetAlertDialog(requireActivity(), SweetAlertDialog.PROGRESS_TYPE)
 
         tvTitle.text = "Notification"
         ivBack.visibility = View.GONE
 
-        btnMyBargain.setOnClickListener {
-            startActivity(Intent(requireActivity(), MyBargainActivity::class.java))
+        btnOffer.setOnClickListener {
+            startActivity(Intent(requireActivity(), OfferActivity::class.java))
         }
-        btnManageBargain.setOnClickListener {
-            startActivity(Intent(requireActivity(), ManageBargainActivity::class.java))
+        btnOfferManage.setOnClickListener {
+            startActivity(Intent(requireActivity(), OfferManageActivity::class.java))
         }
-        btnMyPurchase.setOnClickListener {
-
+        btnPurchase.setOnClickListener {
+            startActivity(Intent(requireActivity(), TransactionActivity::class.java))
         }
-        btnManagePurchase.setOnClickListener {
+        btnPurchaseManage.setOnClickListener {
 
         }
     }
@@ -107,33 +108,35 @@ class NotificationFragment : Fragment(), NotificationContract.View {
         }
     }
 
-    override fun onResultMyBargain(responseBargainList: ResponseBargainList) {
-        val bargains = responseBargainList.bargains
+    override fun onResultMyBargain(responseOfferList: ResponseOfferList) {
+        val status = responseOfferList.status
+        val bargains = responseOfferList.offers!!
 
-        if (bargains.isEmpty()) {
-            layoutCountMyBargain.visibility = View.GONE
+        if (status) {
+            layoutCountOffer.visibility = View.VISIBLE
+            tvCountOffer.text = bargains.size.toString()
         } else {
-            layoutCountMyBargain.visibility = View.VISIBLE
-            tvCountMyBargain.text = bargains.size.toString()
+            layoutCountOffer.visibility = View.GONE
         }
     }
 
-    override fun onResultManageBargain(responseBargainList: ResponseBargainList) {
-        val bargains = responseBargainList.bargains
+    override fun onResultManageBargain(responseOfferList: ResponseOfferList) {
+        val status = responseOfferList.status
+        val bargains = responseOfferList.offers!!
 
-        if (bargains.isEmpty()) {
-            layoutCountManageBargain.visibility = View.GONE
+        if (status) {
+            layoutCountOfferManage.visibility = View.VISIBLE
+            tvCountOfferManage.text = bargains.size.toString()
         } else {
-            layoutCountManageBargain.visibility = View.VISIBLE
-            tvCountManagePurchase.text = bargains.size.toString()
+            layoutCountOfferManage.visibility = View.GONE
         }
     }
 
-    override fun onResultMyPurchase(responseBargainList: ResponseBargainList) {
+    override fun onResultMyPurchase(responseOfferList: ResponseOfferList) {
 
     }
 
-    override fun onResultManagePurchase(responseBargainList: ResponseBargainList) {
+    override fun onResultManagePurchase(responseOfferList: ResponseOfferList) {
 
     }
 }

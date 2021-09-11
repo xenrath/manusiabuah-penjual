@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".ui.home.HomeFragment">
 
     <LinearLayout
@@ -33,127 +32,17 @@
                 app:tabBackground="@color/transparent"
                 app:tabGravity="fill"
                 app:tabMode="fixed"
-                app:tabTextAppearance="@style/CustomTabsStyle" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/cvSearch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/background_stroke_teal"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="12dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_search_24"
-                app:tint="@color/customGrayDark" />
-
-            <EditText
-                android:id="@+id/et_search"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:background="@android:color/transparent"
-                android:fontFamily="@font/poppins"
-                android:gravity="center_vertical"
-                android:hint="Cari buah ..."
-                android:imeOptions="actionSearch"
-                android:importantForAutofill="no"
-                android:inputType="text"
-                android:textColor="@color/colorBlack"
-                android:textSize="14sp"
-                tools:ignore="HardcodedText" />
+                app:tabTextAppearance="@style/CustomTabsStyleLetter" />
 
         </LinearLayout>
 
     </LinearLayout>
 
-    <ScrollView
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
-        android:visibility="visible">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_product"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                tools:itemCount="5"
-                tools:listitem="@layout/adapter_home" />
-
-        </LinearLayout>
-
-    </ScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
-        android:orientation="vertical"
-        android:paddingTop="20dp">
-
-        <LinearLayout
-            android:id="@+id/layout_empty_product"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/background_stroke_teal"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="10dp"
-            android:visibility="gone">
-
-            <ImageView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:src="@drawable/fruit_backgroud" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins"
-                android:text="Belum ada produk yang dijual"
-                android:textColor="@color/colorBlack"
-                tools:ignore="HardcodedText" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_empty_product_search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/background_stroke_teal"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="10dp"
-            android:visibility="gone">
-
-            <ImageView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:src="@drawable/fruit_backgroud" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins"
-                android:text="Produk yang dicari tidak ada"
-                android:textColor="@color/colorBlack"
-                tools:ignore="HardcodedText" />
-
-        </LinearLayout>
-
-    </LinearLayout>
+        android:paddingBottom="10dp" />
 
 </RelativeLayout>

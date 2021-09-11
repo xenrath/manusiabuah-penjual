@@ -2,7 +2,7 @@ package com.xenrath.manusiabuah.ui.home.detail
 
 import com.xenrath.manusiabuah.data.model.product.DataProduct
 import com.xenrath.manusiabuah.data.model.product.ResponseProductDetail
-import com.xenrath.manusiabuah.data.model.bargain.ResponseBargainUpdate
+import com.xenrath.manusiabuah.data.model.offer.ResponseOfferUpdate
 
 interface HomeDetailContract {
 
@@ -24,7 +24,7 @@ interface HomeDetailContract {
         fun onLoadingDetail(loading: Boolean, message: String? = "Loading...")
         fun onLoadingBottomSheet(loading: Boolean)
         fun onResultDetail(responseProductDetail: ResponseProductDetail)
-        fun onResultBargain(responseBargainUpdate: ResponseBargainUpdate)
+        fun onResultBargain(responseOfferUpdate: ResponseOfferUpdate)
         fun showDialogBuy(dataProduct: DataProduct)
         fun showDialogBargain(dataProduct: DataProduct)
         fun showDialogLocation(dataProduct: DataProduct)

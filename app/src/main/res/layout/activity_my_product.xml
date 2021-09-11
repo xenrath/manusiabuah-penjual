@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.product.ProductActivity">
+    tools:context=".ui.home.tabs.list.create.ProductCreateActivity">
 
     <LinearLayout
         android:id="@+id/toolbar"
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="10dp"
-            tools:listitem="@layout/adapter_my_product"/>
+            tools:listitem="@layout/adapter_product"/>
 
     </ScrollView>
 
@@ -43,7 +43,7 @@
         android:paddingTop="40dp">
 
         <LinearLayout
-            android:id="@+id/layout_empty_product"
+            android:id="@+id/layout_empty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"

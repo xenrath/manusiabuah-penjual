@@ -71,7 +71,7 @@ class AddAddressPresenter(val view: AddAddressContract.View): AddAddressContract
         postal_code: String,
     ) {
         view.onLoading(true)
-        ApiService.endPoint.insertAddress(
+        ApiService.endPoint.addressCreate(
             user_id,
             name,
             phone,

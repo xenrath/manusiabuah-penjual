@@ -18,7 +18,7 @@ import com.xenrath.manusiabuah.data.model.user.DataUser
 import com.xenrath.manusiabuah.data.database.PrefManager
 import com.xenrath.manusiabuah.data.model.product.DataProduct
 import com.xenrath.manusiabuah.data.model.product.ResponseProductDetail
-import com.xenrath.manusiabuah.data.model.bargain.ResponseBargainUpdate
+import com.xenrath.manusiabuah.data.model.offer.ResponseOfferUpdate
 import com.xenrath.manusiabuah.utils.CurrencyHelper
 import com.xenrath.manusiabuah.utils.GlideHelper
 import com.xenrath.manusiabuah.utils.sweetalert.SweetAlertDialog
@@ -97,7 +97,6 @@ class HomeDetailActivity : AppCompatActivity(), HomeDetailContract.View, OnMapRe
             GlideHelper.setImage(this, user.image!!, iv_user_image)
         }
         tv_user_name.text = user.name
-        tv_user_level.text = user.level
         tv_name.text = product.name
         tv_description.text = product.description
         tv_address.text = product.address + product.city_name + product.province_name
@@ -114,7 +113,7 @@ class HomeDetailActivity : AppCompatActivity(), HomeDetailContract.View, OnMapRe
         }
     }
 
-    override fun onResultBargain(responseBargainUpdate: ResponseBargainUpdate) {
+    override fun onResultBargain(responseOfferUpdate: ResponseOfferUpdate) {
 
     }
 

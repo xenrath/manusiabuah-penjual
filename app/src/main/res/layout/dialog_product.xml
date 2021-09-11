@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/bottom_sheet_backgroud"
     android:orientation="vertical"
-    android:paddingVertical="10dp"
-    android:background="@drawable/bottom_sheet_backgroud">
+    android:paddingVertical="10dp">
 
     <View
         android:layout_width="50dp"
@@ -31,13 +31,13 @@
                 android:layout_height="240dp"
                 android:adjustViewBounds="true"
                 android:background="@drawable/background_stroke_teal"
-                android:padding="4dp"
+                android:padding="2dp"
                 android:src="@drawable/product"
                 app:riv_corner_radius="4dp" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="1dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginVertical="10dp"
                 android:background="@color/customTeal" />
@@ -54,6 +54,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"
                     android:textColor="@color/colorBlack"
+                    android:textSize="12sp"
                     tools:text="Nama Produk" />
 
                 <TextView
@@ -62,13 +63,14 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins"
                     android:textColor="@color/colorBlack"
+                    android:textSize="12sp"
                     tools:text="Eceran" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="1dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginVertical="10dp"
                 android:background="@color/customTeal" />
@@ -85,8 +87,9 @@
                     android:layout_height="wrap_content"
                     android:drawablePadding="5dp"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="Lokasi"
+                    android:text="Alamat"
                     android:textColor="@color/colorBlack"
+                    android:textSize="12sp"
                     app:drawableEndCompat="@drawable/ic_baseline_location_on_24"
                     app:drawableTint="@color/customGrayDark"
                     tools:ignore="HardcodedText" />
@@ -98,6 +101,7 @@
                     android:fontFamily="@font/poppins"
                     android:text="Surabaya"
                     android:textColor="@color/colorBlack"
+                    android:textSize="12sp"
                     tools:ignore="HardcodedText" />
 
             </LinearLayout>
@@ -107,10 +111,12 @@
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
-                android:padding="4dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/background_stroke_teal"
-                android:layout_marginTop="10dp" />
+                android:padding="2dp" />
 
         </LinearLayout>
+
     </ScrollView>
+
 </LinearLayout>

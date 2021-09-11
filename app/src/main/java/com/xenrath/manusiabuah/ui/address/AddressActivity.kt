@@ -1,10 +1,10 @@
 package com.xenrath.manusiabuah.ui.address
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xenrath.manusiabuah.R
 import com.xenrath.manusiabuah.data.database.PrefManager
@@ -12,13 +12,16 @@ import com.xenrath.manusiabuah.data.model.address.DataAddress
 import com.xenrath.manusiabuah.data.model.address.ResponseAddressList
 import com.xenrath.manusiabuah.data.model.address.ResponseAddressUpdate
 import com.xenrath.manusiabuah.ui.address.add.AddAddressActivity
-import com.xenrath.manusiabuah.utils.ToolbarHelper
+import com.xenrath.manusiabuah.utils.sweetalert.SweetAlertDialog
 import kotlinx.android.synthetic.main.activity_address.*
+import kotlinx.android.synthetic.main.toolbar_custom.*
 
 class AddressActivity : AppCompatActivity(), AddressContract.View {
 
     lateinit var prefManager: PrefManager
     lateinit var presenter: AddressPresenter
+
+    lateinit var sLoading: SweetAlertDialog
 
     private lateinit var addressAdapter: AddressAdapter
     lateinit var address: DataAddress
@@ -41,8 +44,11 @@ class AddressActivity : AppCompatActivity(), AddressContract.View {
         presenter.getAddress(prefManager.prefId.toString())
     }
 
+    @SuppressLint("SetTextI18n")
     override fun initActivity() {
-        ToolbarHelper.setToolbar(this, toolbar, "Tambah Alamat")
+        tv_title.text = "Alamat Pengiriman"
+
+        sLoading = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
 
         val layoutManager = LinearLayoutManager(applicationContext)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -64,14 +70,10 @@ class AddressActivity : AppCompatActivity(), AddressContract.View {
         }
     }
 
-    override fun onLoading(loading: Boolean) {
+    override fun onLoading(loading: Boolean, message: String?) {
         when (loading) {
-            true -> {
-                progress_line.visibility = View.VISIBLE
-            }
-            false -> {
-                progress_line.visibility = View.GONE
-            }
+            true -> sLoading.setTitleText(message).show()
+            false -> sLoading.dismiss()
         }
     }
 
@@ -89,9 +91,5 @@ class AddressActivity : AppCompatActivity(), AddressContract.View {
 
     override fun onResultChoice(responseAddressUpdate: ResponseAddressUpdate) {
         onBackPressed()
-    }
-
-    override fun showMessage(message: String) {
-        Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
     }
 }

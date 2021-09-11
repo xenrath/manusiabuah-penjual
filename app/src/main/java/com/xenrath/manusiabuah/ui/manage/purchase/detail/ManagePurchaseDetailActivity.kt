@@ -6,7 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.xenrath.manusiabuah.R
 import com.xenrath.manusiabuah.data.Constant
-import com.xenrath.manusiabuah.data.model.bargain.ResponseBargainUpdate
+import com.xenrath.manusiabuah.data.model.offer.ResponseOfferUpdate
 import com.xenrath.manusiabuah.data.model.transaction.DataTransaction
 import com.xenrath.manusiabuah.data.model.transaction.ResponseTransactionDetail
 import com.xenrath.manusiabuah.utils.CurrencyHelper
@@ -34,7 +34,7 @@ class ManagePurchaseDetailActivity : AppCompatActivity(), ManagePurchaseDetailCo
 
     override fun onStart() {
         super.onStart()
-        presenter.getBargainDetail(Constant.BARGAIN_ID)
+        presenter.transactionDetail(Constant.BARGAIN_ID)
     }
 
     override fun onDestroy() {
@@ -77,24 +77,22 @@ class ManagePurchaseDetailActivity : AppCompatActivity(), ManagePurchaseDetailCo
     @SuppressLint("SetTextI18n")
     override fun onResult(responseTransactionDetail: ResponseTransactionDetail) {
         transaction = responseTransactionDetail.transaction!!
-        val bargain = transaction.bargain!!
         val address = transaction.address!!
-        val product = bargain.product!!
+        val product = transaction.product!!
 
         tv_status.text = transaction.status
 
         tv_product_name.text = product.name
 
-        tv_total_item.text = bargain.total_item
-        tv_price.text = CurrencyHelper.changeToRupiah(bargain.price!!)
-        tv_price_offer.text = CurrencyHelper.changeToRupiah(bargain.price_offer!!)
+        tv_total_item.text = transaction.total_item
+        tv_price.text = CurrencyHelper.changeToRupiah(product.price!!)
+        tv_price_offer.text = CurrencyHelper.changeToRupiah(transaction.price!!)
 
         tv_address_name.text = address.name
         tv_address_phone.text = address.phone
         tv_address_place.text = address.place
         tv_address_address.text = "${address.address}, ${address.city_name} - ${address.province_name}, Kode POS: ${address.postal_code}"
 
-        tv_shipping_method.text = transaction.shipping_method
         tv_courier.text = transaction.courier
         tv_service_type.text = transaction.service_type
         tv_note.text = transaction.note
@@ -115,7 +113,7 @@ class ManagePurchaseDetailActivity : AppCompatActivity(), ManagePurchaseDetailCo
         }
     }
 
-    override fun onResultUpdate(responseBargainUpdate: ResponseBargainUpdate) {
+    override fun onResultUpdate(responseOfferUpdate: ResponseOfferUpdate) {
 
     }
 

@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
     tools:context=".ui.login.LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/layout_bottom"
-        android:layout_marginTop="30dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="40dp"
+        android:paddingBottom="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,13 +27,14 @@
                 android:fontFamily="@font/poppins_medium"
                 android:text="Login"
                 android:textColor="@color/colorBlack"
-                android:textSize="36sp"
+                android:textSize="32sp"
                 tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/tv_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="12sp"
                 android:fontFamily="@font/poppins_light"
                 android:text="Masuk untuk melanjutkan"
                 android:textColor="@color/colorBlack"
@@ -43,7 +45,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="50dp"
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -51,6 +53,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:hint="Email"
                 app:startIconContentDescription="Email"
                 app:startIconDrawable="@drawable/ic_baseline_email_24"
@@ -63,24 +66,16 @@
                     android:fontFamily="@font/poppins"
                     android:inputType="textEmailAddress"
                     android:textColor="@color/colorBlack"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/outline_password"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:hint="Password"
                 app:endIconMode="password_toggle"
                 app:startIconContentDescription="Password"
@@ -107,12 +102,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="20dp">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="46dp"
             android:background="@drawable/button_primary"
             android:fontFamily="@font/poppins_medium"
             android:text="Masuk"
@@ -130,16 +126,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins"
+                android:fontFamily="@font/poppins_light"
                 android:text="Belum punya akun? "
+                android:textSize="12sp"
                 android:textColor="@color/colorBlack"
                 tools:ignore="HardcodedText" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_medium"
+                android:fontFamily="@font/poppins"
                 android:text="Daftar"
+                android:textSize="12sp"
                 android:textColor="@color/colorBlack"
                 tools:ignore="HardcodedText" />
 

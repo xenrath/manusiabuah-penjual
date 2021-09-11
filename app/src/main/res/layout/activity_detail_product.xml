@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
                 android:background="@drawable/background_stroke_teal"
-                android:padding="4dp"
+                android:padding="2dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/product"
                 app:riv_corner_radius="4dp"
@@ -51,58 +51,48 @@
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/layout_profile_user"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/background_stroke_olive"
+                    android:background="@drawable/background_stroke_teal"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
                     android:padding="10dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/iv_user_image"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_profile"
+                        app:riv_oval="true" />
+
+                    <TextView
+                        android:id="@+id/tv_user_name"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/poppins"
+                        android:importantForAutofill="no"
+                        android:text="Indah"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="12sp"
+                        tools:ignore="HardcodedText" />
 
-                        <com.makeramen.roundedimageview.RoundedImageView
-                            android:id="@+id/iv_user_image"
-                            android:layout_width="42dp"
-                            android:layout_height="42dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/ic_profile"
-                            app:riv_oval="true" />
+                </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/tv_user_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:fontFamily="@font/poppins"
-                            android:importantForAutofill="no"
-                            android:text="Indah"
-                            android:textColor="@color/colorBlack"
-                            tools:ignore="HardcodedText" />
-
-                        <TextView
-                            android:id="@+id/tv_user_level"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:fontFamily="@font/poppins_light"
-                            android:importantForAutofill="no"
-                            android:text="(Petani)"
-                            tools:ignore="HardcodedText" />
-
-                    </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="42dp"
-                        android:layout_height="42dp"
-                        android:layout_alignParentEnd="true"
-                        app:srcCompat="@drawable/ic_baseline_chevron_right_24"
-                        app:tint="@color/customInfo" />
-
-                </RelativeLayout>
+                <TextView
+                    android:id="@+id/btn_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="@string/detail_user"
+                    android:textColor="@color/customInfo"
+                    android:textSize="10sp"
+                    tools:ignore="HardcodedText,SmallSp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -119,6 +109,7 @@
                         android:importantForAutofill="no"
                         android:text="Produk :"
                         android:textColor="@color/colorBlack"
+                        android:textSize="12sp"
                         tools:ignore="HardcodedText" />
 
                     <TextView
@@ -129,6 +120,7 @@
                         android:importantForAutofill="no"
                         android:text="Produk"
                         android:textColor="@color/colorBlack"
+                        android:textSize="12sp"
                         tools:ignore="HardcodedText" />
 
                 </LinearLayout>
@@ -148,6 +140,7 @@
                         android:importantForAutofill="no"
                         android:text="Deskripsi :"
                         android:textColor="@color/colorBlack"
+                        android:textSize="12sp"
                         tools:ignore="HardcodedText" />
 
                     <TextView
@@ -158,6 +151,7 @@
                         android:importantForAutofill="no"
                         android:text="Deskripsi"
                         android:textColor="@color/colorBlack"
+                        android:textSize="12sp"
                         tools:ignore="HardcodedText" />
 
                 </LinearLayout>
@@ -182,6 +176,7 @@
                             android:importantForAutofill="no"
                             android:text="Alamat :"
                             android:textColor="@color/colorBlack"
+                            android:textSize="12sp"
                             tools:ignore="HardcodedText" />
 
                         <TextView
@@ -193,14 +188,15 @@
                             android:importantForAutofill="no"
                             android:text="Alamat"
                             android:textColor="@color/colorBlack"
+                            android:textSize="12sp"
                             tools:ignore="HardcodedText" />
 
                     </LinearLayout>
 
                     <ImageView
                         android:id="@+id/btn_location"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
                         android:layout_alignParentEnd="true"
                         android:background="@drawable/background_stroke_info"
                         android:padding="4dp"
@@ -224,6 +220,7 @@
                         android:importantForAutofill="no"
                         android:text="Harga :"
                         android:textColor="@color/colorBlack"
+                        android:textSize="12sp"
                         tools:ignore="HardcodedText" />
 
                     <LinearLayout
@@ -240,6 +237,7 @@
                             android:importantForAutofill="no"
                             android:text="Rp20.000"
                             android:textColor="@color/colorBlack"
+                            android:textSize="12sp"
                             tools:ignore="HardcodedText" />
 
                         <TextView
@@ -249,6 +247,7 @@
                             android:importantForAutofill="no"
                             android:text=" / kg"
                             android:textColor="@color/colorBlack"
+                            android:textSize="12sp"
                             tools:ignore="HardcodedText" />
 
                     </LinearLayout>
@@ -272,12 +271,13 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_bargain"
             android:layout_width="0dp"
-            android:layout_height="44dp"
+            android:layout_height="38dp"
             android:layout_weight="1"
             android:background="@drawable/button_secondary"
             android:fontFamily="@font/poppins_medium"
             android:text="Tawar"
             android:textColor="@color/colorWhite"
+            android:textSize="12sp"
             tools:ignore="HardcodedText" />
 
         <View
@@ -289,12 +289,13 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_buy"
             android:layout_width="0dp"
-            android:layout_height="44dp"
+            android:layout_height="38dp"
             android:layout_weight="1"
             android:background="@drawable/button_primary"
             android:fontFamily="@font/poppins_medium"
             android:text="Beli"
             android:textColor="@color/colorWhite"
+            android:textSize="12sp"
             tools:ignore="HardcodedText" />
 
     </LinearLayout>

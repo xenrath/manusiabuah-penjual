@@ -22,7 +22,7 @@ class AddressAdapter(
         val tvName = view.findViewById<TextView>(R.id.tv_name)!!
         val tvPhone = view.findViewById<TextView>(R.id.tv_phone)!!
         val tvAddress = view.findViewById<TextView>(R.id.tv_address)!!
-        val cvAddress = view.findViewById<CardView>(R.id.cv_address)!!
+        val layoutAddress = view.findViewById<CardView>(R.id.layout_address)!!
         val rbAddress = view.findViewById<RadioButton>(R.id.rb_address)!!
     }
 
@@ -38,7 +38,7 @@ class AddressAdapter(
         holder.tvPhone.text = address.phone
         holder.tvAddress.text = address.address + ", " + address.city_name + ", " + address.postal_code + ", (" + address.place + ")"
         holder.rbAddress.isChecked = address.status != 0
-        holder.cvAddress.setOnClickListener {
+        holder.layoutAddress.setOnClickListener {
             clickListener(address)
         }
     }

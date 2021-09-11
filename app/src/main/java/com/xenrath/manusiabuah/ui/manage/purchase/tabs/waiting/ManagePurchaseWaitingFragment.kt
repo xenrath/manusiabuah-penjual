@@ -5,13 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xenrath.manusiabuah.R
 import com.xenrath.manusiabuah.data.database.PrefManager
-import com.xenrath.manusiabuah.data.model.bargain.DataBargain
-import com.xenrath.manusiabuah.data.model.bargain.ResponseBargainList
-import com.xenrath.manusiabuah.ui.manage.bargain.ManageBargainAdapter
+import com.xenrath.manusiabuah.data.model.offer.DataOffer
+import com.xenrath.manusiabuah.data.model.offer.ResponseOfferList
+import com.xenrath.manusiabuah.ui.manage.offer.OfferManageAdapter
 import com.xenrath.manusiabuah.utils.sweetalert.SweetAlertDialog
 
 class ManagePurchaseWaitingFragment : Fragment(), ManagePurchaseWaitingContract.View {
@@ -19,9 +21,13 @@ class ManagePurchaseWaitingFragment : Fragment(), ManagePurchaseWaitingContract.
     lateinit var prefManager: PrefManager
     lateinit var presenter: ManagePurchaseWaitingPresenter
 
-    private lateinit var bargainAdapter: ManageBargainAdapter
+    private lateinit var adapterOffer: OfferManageAdapter
 
     private lateinit var sLoading: SweetAlertDialog
+
+    private lateinit var rvBargain: RecyclerView
+    private lateinit var layoutEmpty: LinearLayout
+    private lateinit var tvEmpty: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,12 +49,17 @@ class ManagePurchaseWaitingFragment : Fragment(), ManagePurchaseWaitingContract.
     }
 
     override fun initFragment(view: View) {
-        bargainAdapter = ManageBargainAdapter(requireActivity(), ArrayList())
+        rvBargain = view.findViewById(R.id.rv_bargain)
+        layoutEmpty = view.findViewById(R.id.layout_empty)
+        tvEmpty = view.findViewById(R.id.tv_empty)
 
-        val rvBargain = view.findViewById<RecyclerView>(R.id.rv_bargain)
+        sLoading = SweetAlertDialog(requireActivity(), SweetAlertDialog.PROGRESS_TYPE)
+
+        adapterOffer = OfferManageAdapter(requireActivity(), ArrayList())
+
         val layoutManager = LinearLayoutManager(activity)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
-        rvBargain.adapter = bargainAdapter
+        rvBargain.adapter = adapterOffer
         rvBargain.layoutManager = layoutManager
     }
 
@@ -59,9 +70,20 @@ class ManagePurchaseWaitingFragment : Fragment(), ManagePurchaseWaitingContract.
         }
     }
 
-    override fun onResult(responseBargainList: ResponseBargainList) {
-        val dataBargain: List<DataBargain> = responseBargainList.bargains
-        bargainAdapter.setData(dataBargain)
+    override fun onResult(responseOfferList: ResponseOfferList) {
+        val status: Boolean = responseOfferList.status
+        val message: String = responseOfferList.message!!
+        val offers: List<DataOffer> = responseOfferList.offers!!
+
+        if (status) {
+            rvBargain.visibility = View.VISIBLE
+            layoutEmpty.visibility = View.GONE
+            adapterOffer.setData(offers)
+        } else {
+            rvBargain.visibility = View.GONE
+            layoutEmpty.visibility = View.VISIBLE
+            tvEmpty.text = message
+        }
     }
 
 }

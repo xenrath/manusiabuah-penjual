@@ -10,7 +10,6 @@ class ProfilePresenter(val view: ProfileContract.View): ProfileContract.Presente
 
     override fun doLogout(prefManager: PrefManager) {
         prefManager.logout()
-        view.showMessage("Berhasil keluar")
         view.onResultLogout()
     }
 

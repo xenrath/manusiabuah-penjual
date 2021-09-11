@@ -17,7 +17,7 @@ class AddressPresenter(val view: AddressContract.View): AddressContract.Presente
 
     override fun getAddress(user_id: String) {
         view.onLoading(true)
-        ApiService.endPoint.getAddress(user_id).enqueue(object: Callback<ResponseAddressList>{
+        ApiService.endPoint.addressList(user_id).enqueue(object: Callback<ResponseAddressList>{
             override fun onResponse(
                 call: Call<ResponseAddressList>,
                 response: Response<ResponseAddressList>
@@ -38,7 +38,7 @@ class AddressPresenter(val view: AddressContract.View): AddressContract.Presente
 
     override fun checkAddress(id: Long, user_id: String) {
         view.onLoading(true)
-        ApiService.endPoint.checkAddress(id, user_id).enqueue(object: Callback<ResponseAddressUpdate> {
+        ApiService.endPoint.addressActived(id, user_id).enqueue(object: Callback<ResponseAddressUpdate> {
             override fun onResponse(
                 call: Call<ResponseAddressUpdate>,
                 response: Response<ResponseAddressUpdate>

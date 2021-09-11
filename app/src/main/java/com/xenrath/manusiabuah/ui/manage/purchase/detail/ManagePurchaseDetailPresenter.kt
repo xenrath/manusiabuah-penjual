@@ -7,7 +7,7 @@ class ManagePurchaseDetailPresenter(val view: ManagePurchaseDetailContract.View)
         view.initListener()
     }
 
-    override fun getBargainDetail(id: Long) {
+    override fun transactionDetail(id: Long) {
 //        view.onLoading(true, "Menampilkan daftar pembelian...")
 //        ApiService.endPoint.getBargainDetail(id).enqueue(object : Callback<ResponseBargainDetail> {
 //            override fun onResponse(

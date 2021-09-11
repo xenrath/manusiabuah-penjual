@@ -1,6 +1,6 @@
 package com.xenrath.manusiabuah.ui.manage.purchase.tabs.waiting
 
-import com.xenrath.manusiabuah.data.model.bargain.ResponseBargainList
+import com.xenrath.manusiabuah.data.model.offer.ResponseOfferList
 
 interface ManagePurchaseWaitingContract {
 
@@ -14,7 +14,7 @@ interface ManagePurchaseWaitingContract {
     interface View {
         fun initFragment(view: android.view.View)
         fun onLoading(loading: Boolean, message: String? = "Loading...")
-        fun onResult(responseBargainList: ResponseBargainList)
+        fun onResult(responseOfferList: ResponseOfferList)
     }
 
 }

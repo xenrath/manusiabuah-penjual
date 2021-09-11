@@ -1,49 +1,49 @@
 package com.xenrath.manusiabuah.ui.notification
 
-import com.xenrath.manusiabuah.data.model.bargain.ResponseBargainList
+import com.xenrath.manusiabuah.data.model.offer.ResponseOfferList
 import com.xenrath.manusiabuah.network.ApiService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class NotificationPresenter(val view: NotificationContract.View) : NotificationContract.Presenter {
-    override fun bargainAccepted(user_id: String, status: String) {
+    override fun offerAccepted(id: Long) {
         view.onLoading(true)
-        ApiService.endPoint.getMyBargain(user_id, status).enqueue(object: Callback<ResponseBargainList> {
+        ApiService.endPoint.offerAccepted(id).enqueue(object: Callback<ResponseOfferList> {
             override fun onResponse(
-                call: Call<ResponseBargainList>,
-                response: Response<ResponseBargainList>
+                call: Call<ResponseOfferList>,
+                response: Response<ResponseOfferList>
             ) {
                 view.onLoading(false)
                 if (response.isSuccessful) {
-                    val responseBargainList: ResponseBargainList? = response.body()
-                    view.onResultMyBargain(responseBargainList!!)
+                    val responseOfferList: ResponseOfferList? = response.body()
+                    view.onResultMyBargain(responseOfferList!!)
                 }
             }
 
-            override fun onFailure(call: Call<ResponseBargainList>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseOfferList>, t: Throwable) {
                 view.onLoading(false)
             }
 
         })
     }
 
-    override fun bargainSellerWaiting(user_id: String) {
+    override fun offerWaitingManage(id: Long) {
         view.onLoading(true)
-        ApiService.endPoint.bargainSellerWaiting(user_id).enqueue(object :
-            Callback<ResponseBargainList> {
+        ApiService.endPoint.offerWaitingManage(id).enqueue(object :
+            Callback<ResponseOfferList> {
             override fun onResponse(
-                call: Call<ResponseBargainList>,
-                response: Response<ResponseBargainList>
+                call: Call<ResponseOfferList>,
+                response: Response<ResponseOfferList>
             ) {
                 view.onLoading(false)
                 if (response.isSuccessful) {
-                    val responseBargainList: ResponseBargainList? = response.body()
-                    view.onResultManageBargain(responseBargainList!!)
+                    val responseOfferList: ResponseOfferList? = response.body()
+                    view.onResultManageBargain(responseOfferList!!)
                 }
             }
 
-            override fun onFailure(call: Call<ResponseBargainList>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseOfferList>, t: Throwable) {
                 view.onLoading(false)
             }
         })

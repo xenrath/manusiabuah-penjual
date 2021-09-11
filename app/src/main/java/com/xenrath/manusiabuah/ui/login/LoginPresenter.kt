@@ -18,7 +18,7 @@ class LoginPresenter(val view: LoginContract.View): LoginContract.Presenter {
 
     override fun doLogin(email: String, password: String, level: String) {
         view.onLoading(true, "Melakukan login...")
-        ApiService.endPoint.loginSeller(
+        ApiService.endPoint.userLogin(
             email,
             password,
             level

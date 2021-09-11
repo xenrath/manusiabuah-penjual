@@ -47,18 +47,22 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         }
     }
 
-    override fun initListener() {
+    override fun initActivity() {
         fm.beginTransaction().add(R.id.nav_host_fragment, fragmentHome).show(fragmentHome).commit()
-        fm.beginTransaction().add(R.id.nav_host_fragment, fragmentNotification).hide(fragmentNotification).commit()
-        fm.beginTransaction().add(R.id.nav_host_fragment, fragmentProfile).hide(fragmentProfile).commit()
+        fm.beginTransaction().add(R.id.nav_host_fragment, fragmentNotification)
+            .hide(fragmentNotification).commit()
+        fm.beginTransaction().add(R.id.nav_host_fragment, fragmentProfile).hide(fragmentProfile)
+            .commit()
 
         bottomNavigationView = findViewById(R.id.nav_view)
         menu = bottomNavigationView.menu
         menuItem = menu.getItem(0)
         menuItem.isChecked = true
+    }
 
+    override fun initListener() {
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
-            when(item.itemId) {
+            when (item.itemId) {
                 R.id.navigation_home -> {
                     callFragment(0, fragmentHome)
                 }
@@ -77,7 +81,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         }
     }
 
-    private fun callFragment(int: Int, fragment: Fragment) {
+    override fun callFragment(int: Int, fragment: Fragment) {
         menuItem = menu.getItem(int)
         menuItem.isChecked = true
         fm.beginTransaction().hide(active).show(fragment).commit()

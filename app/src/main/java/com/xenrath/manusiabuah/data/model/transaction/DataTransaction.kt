@@ -2,21 +2,23 @@ package com.xenrath.manusiabuah.data.model.transaction
 
 import com.google.gson.annotations.SerializedName
 import com.xenrath.manusiabuah.data.model.address.DataAddress
-import com.xenrath.manusiabuah.data.model.bargain.DataBargain
+import com.xenrath.manusiabuah.data.model.product.DataProduct
 
 data class DataTransaction(
     @SerializedName("id") val id: Long?,
     @SerializedName("invoice_number") val invoice_number: String?,
-    @SerializedName("bargain_id") val bargain_id: String?,
+    @SerializedName("product_id") val product_id: String?,
     @SerializedName("address_id") val address_id: String?,
-    @SerializedName("shipping_method") val shipping_method: String?,
+    @SerializedName("price") val price: String?,
+    @SerializedName("total_item") val total_item: String?,
     @SerializedName("courier") val courier: String?,
     @SerializedName("service_type") val service_type: String?,
+    @SerializedName("cost") val cost: String?,
     @SerializedName("note") val note: String? = null,
-    @SerializedName("total_transfer") val total_transfer: Int?,
-    @SerializedName("payment_status") val payment_status: String?,
+    @SerializedName("total_price") val total_price: Int?,
+    @SerializedName("proof") val proof: String?,
     @SerializedName("status") val status: String?,
     @SerializedName("date") val date: String?,
-    @SerializedName("bargain") val bargain: DataBargain?,
+    @SerializedName("product") val product: DataProduct?,
     @SerializedName("address") val address: DataAddress?
 )

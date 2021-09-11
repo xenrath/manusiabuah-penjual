@@ -27,25 +27,41 @@
         android:orientation="vertical"
         android:paddingHorizontal="10dp">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/customGray" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_medium"
-                android:text="Tawaran"
-                android:textColor="@color/colorBlack"
-                tools:ignore="HardcodedText" />
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/customGray" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/poppins_medium"
+                    android:paddingHorizontal="20dp"
+                    android:text="Tawaran"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="14sp"
+                    tools:ignore="HardcodedText" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/customGray" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -55,7 +71,7 @@
                 android:orientation="horizontal">
 
                 <RelativeLayout
-                    android:id="@+id/btn_my_bargain"
+                    android:id="@+id/btn_offer"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="5dp"
@@ -68,24 +84,25 @@
                         android:layout_height="wrap_content">
 
                         <LinearLayout
-                            android:id="@+id/layout_count_my_bargain"
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
+                            android:id="@+id/layout_count_offer"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
                             android:layout_alignParentEnd="true"
                             android:layout_margin="5dp"
-                            android:background="@drawable/background_stroke_info"
+                            android:background="@color/customInfo"
                             android:gravity="center"
                             android:visibility="gone"
                             tools:ignore="UselessParent">
 
                             <TextView
-                                android:id="@+id/tv_count_my_bargain"
+                                android:id="@+id/tv_count_offer"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_medium"
                                 android:maxLength="2"
                                 android:text="1"
-                                android:textColor="@color/colorBlack"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="12sp"
                                 tools:ignore="HardcodedText" />
 
                         </LinearLayout>
@@ -103,14 +120,14 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="vertical"
-                            android:padding="20dp"
+                            android:padding="10dp"
                             tools:ignore="UseCompoundDrawables,UselessParent">
 
-                            <ImageView
-                                android:layout_width="42dp"
-                                android:layout_height="42dp"
-                                app:srcCompat="@drawable/ic_handshake_regular"
-                                app:tint="@color/customGrayDark" />
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:scaleType="centerCrop"
+                                app:srcCompat="@drawable/my_bargain" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -120,6 +137,7 @@
                                 android:importantForAutofill="no"
                                 android:text="Tawaran Saya"
                                 android:textColor="@color/colorBlack"
+                                android:textSize="12sp"
                                 tools:ignore="HardcodedText" />
 
                         </LinearLayout>
@@ -129,7 +147,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/btn_manage_bargain"
+                    android:id="@+id/btn_offer_manage"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
@@ -142,24 +160,25 @@
                         android:layout_height="wrap_content">
 
                         <LinearLayout
-                            android:id="@+id/layout_count_manage_bargain"
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
+                            android:id="@+id/layout_count_offer_manage"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
                             android:layout_alignParentEnd="true"
                             android:layout_margin="5dp"
-                            android:background="@drawable/background_stroke_info"
+                            android:background="@color/customInfo"
                             android:gravity="center"
                             android:visibility="gone"
                             tools:ignore="UselessParent">
 
                             <TextView
-                                android:id="@+id/tv_count_manage_bargain"
+                                android:id="@+id/tv_count_offer_manage"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_medium"
                                 android:maxLength="2"
                                 android:text="1"
-                                android:textColor="@color/colorBlack"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="12sp"
                                 tools:ignore="HardcodedText" />
 
                         </LinearLayout>
@@ -177,14 +196,14 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="vertical"
-                            android:padding="20dp"
+                            android:padding="10dp"
                             tools:ignore="UseCompoundDrawables,UselessParent">
 
                             <ImageView
-                                android:layout_width="42dp"
-                                android:layout_height="42dp"
-                                app:srcCompat="@drawable/ic_handshake_regular"
-                                app:tint="@color/customGrayDark" />
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:scaleType="centerCrop"
+                                app:srcCompat="@drawable/manage_bargain" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -194,6 +213,7 @@
                                 android:importantForAutofill="no"
                                 android:text="Kelola Tawaran"
                                 android:textColor="@color/colorBlack"
+                                android:textSize="12sp"
                                 tools:ignore="HardcodedText" />
 
                         </LinearLayout>
@@ -206,25 +226,42 @@
 
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="20dp"
-            android:background="@color/customGray" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_medium"
-                android:text="Pembelian"
-                android:textColor="@color/colorBlack"
-                tools:ignore="HardcodedText" />
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/customGray" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/poppins_medium"
+                    android:paddingHorizontal="20dp"
+                    android:text="Pembelian"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="14sp"
+                    tools:ignore="HardcodedText" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/customGray" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -234,7 +271,7 @@
                 android:orientation="horizontal">
 
                 <RelativeLayout
-                    android:id="@+id/btn_my_purchase"
+                    android:id="@+id/btn_purchase"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="5dp"
@@ -247,24 +284,25 @@
                         android:layout_height="wrap_content">
 
                         <LinearLayout
-                            android:id="@+id/layout_count_my_purchase"
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
+                            android:id="@+id/layout_count_purchase"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
                             android:layout_alignParentEnd="true"
                             android:layout_margin="5dp"
-                            android:background="@drawable/background_stroke_info"
+                            android:background="@color/customInfo"
                             android:gravity="center"
                             android:visibility="gone"
                             tools:ignore="UselessParent">
 
                             <TextView
-                                android:id="@+id/tv_count_my_purchase"
+                                android:id="@+id/tv_count_purchase"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_medium"
                                 android:maxLength="2"
                                 android:text="1"
-                                android:textColor="@color/colorBlack"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="12sp"
                                 tools:ignore="HardcodedText" />
 
                         </LinearLayout>
@@ -282,14 +320,13 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="vertical"
-                            android:padding="20dp"
+                            android:padding="10dp"
                             tools:ignore="UseCompoundDrawables,UselessParent">
 
                             <ImageView
-                                android:layout_width="42dp"
-                                android:layout_height="42dp"
-                                app:srcCompat="@drawable/ic_baseline_shopping_cart_24"
-                                app:tint="@color/customGrayDark" />
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                app:srcCompat="@drawable/my_purchase" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -299,6 +336,7 @@
                                 android:importantForAutofill="no"
                                 android:text="Pembelian Saya"
                                 android:textColor="@color/colorBlack"
+                                android:textSize="12sp"
                                 tools:ignore="HardcodedText" />
 
                         </LinearLayout>
@@ -308,7 +346,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/btn_manage_purchase"
+                    android:id="@+id/btn_purchase_manage"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
@@ -321,24 +359,25 @@
                         android:layout_height="wrap_content">
 
                         <LinearLayout
-                            android:id="@+id/layout_count_manage_purchase"
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
+                            android:id="@+id/layout_count_purchase_manage"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
                             android:layout_alignParentEnd="true"
                             android:layout_margin="5dp"
-                            android:background="@drawable/background_stroke_info"
+                            android:background="@color/customInfo"
                             android:gravity="center"
                             android:visibility="gone"
                             tools:ignore="UselessParent">
 
                             <TextView
-                                android:id="@+id/tv_count_manage_purchase"
+                                android:id="@+id/tv_count_purchase_manage"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_medium"
                                 android:maxLength="2"
                                 android:text="99"
-                                android:textColor="@color/colorBlack"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="12sp"
                                 tools:ignore="HardcodedText" />
 
                         </LinearLayout>
@@ -356,14 +395,13 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="vertical"
-                            android:padding="20dp"
+                            android:padding="10dp"
                             tools:ignore="UseCompoundDrawables,UselessParent">
 
                             <ImageView
-                                android:layout_width="42dp"
-                                android:layout_height="42dp"
-                                app:srcCompat="@drawable/ic_baseline_shopping_cart_24"
-                                app:tint="@color/customGrayDark" />
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                app:srcCompat="@drawable/manage_purchase" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -373,6 +411,7 @@
                                 android:importantForAutofill="no"
                                 android:text="Kelola Pembelian"
                                 android:textColor="@color/colorBlack"
+                                android:textSize="12sp"
                                 tools:ignore="HardcodedText" />
 
                         </LinearLayout>

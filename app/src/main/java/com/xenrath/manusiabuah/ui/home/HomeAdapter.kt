@@ -31,7 +31,7 @@ class HomeAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.adapter_home, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.adapter_other, parent, false)
         return Holder(view)
     }
 

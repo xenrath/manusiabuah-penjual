@@ -4,5 +4,6 @@ import com.google.gson.annotations.SerializedName
 
 data class ResponseAddressDetail(
     @SerializedName("status") val status: Boolean,
-    @SerializedName("address") val address: List<DataAddress>
+    @SerializedName("message") val message: String?,
+    @SerializedName("address") val address: DataAddress?
 )

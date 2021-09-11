@@ -9,11 +9,11 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.xenrath.manusiabuah.R
-import com.xenrath.manusiabuah.data.model.bargain.DataBargain
+import com.xenrath.manusiabuah.data.model.offer.DataOffer
 
 class NotificationHistoryAdapter(
     var context: Context,
-    var bargain: ArrayList<DataBargain>
+    var offer: ArrayList<DataOffer>
     ): RecyclerView.Adapter<NotificationHistoryAdapter.Holder>() {
 
     class Holder(view: View): RecyclerView.ViewHolder(view) {
@@ -33,7 +33,7 @@ class NotificationHistoryAdapter(
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val bargain = bargain[position]
+        val bargain = offer[position]
         holder.tvUser.text = bargain.user_id
         holder.tvProduct.text = bargain.product_id
         holder.tvPrice.text = bargain.price
@@ -50,19 +50,19 @@ class NotificationHistoryAdapter(
     }
 
     override fun getItemCount(): Int {
-        return bargain.size
+        return offer.size
     }
 
-    fun setData(newDataBargain: List<DataBargain>) {
-        bargain.clear()
-        bargain.addAll(newDataBargain)
+    fun setData(newDataOffer: List<DataOffer>) {
+        offer.clear()
+        offer.addAll(newDataOffer)
         notifyDataSetChanged()
     }
 
     fun removeProduct(position: Int) {
-        bargain.removeAt(position)
+        offer.removeAt(position)
         notifyItemRemoved(position)
-        notifyItemRangeChanged(position, bargain.size)
+        notifyItemRangeChanged(position, offer.size)
     }
 
 }

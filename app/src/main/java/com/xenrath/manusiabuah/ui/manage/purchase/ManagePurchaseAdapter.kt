@@ -12,13 +12,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.xenrath.manusiabuah.R
 import com.xenrath.manusiabuah.data.Constant
-import com.xenrath.manusiabuah.data.model.bargain.DataBargain
-import com.xenrath.manusiabuah.ui.manage.bargain.detail.ManageBargainDetailActivity
+import com.xenrath.manusiabuah.data.model.offer.DataOffer
+import com.xenrath.manusiabuah.ui.manage.offer.detail.OfferManageDetailActivity
 import com.xenrath.manusiabuah.utils.CurrencyHelper
 
 class ManagePurchaseAdapter(
     var context: Context,
-    var bargain: ArrayList<DataBargain>
+    var offer: ArrayList<DataOffer>
 ) : RecyclerView.Adapter<ManagePurchaseAdapter.Holder>() {
 
     class Holder(view: View) : RecyclerView.ViewHolder(view) {
@@ -41,7 +41,7 @@ class ManagePurchaseAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val bargain = bargain[position]
+        val bargain = offer[position]
         val product = bargain.product!!
 
         holder.tvProductName.text = product.name
@@ -67,17 +67,17 @@ class ManagePurchaseAdapter(
 
         holder.layoutBargain.setOnClickListener {
             Constant.BARGAIN_ID = bargain.id!!
-            context.startActivity(Intent(context, ManageBargainDetailActivity::class.java))
+            context.startActivity(Intent(context, OfferManageDetailActivity::class.java))
         }
     }
 
     override fun getItemCount(): Int {
-        return bargain.size
+        return offer.size
     }
 
-    fun setData(newDataBargain: List<DataBargain>) {
-        bargain.clear()
-        bargain.addAll(newDataBargain)
+    fun setData(newDataOffer: List<DataOffer>) {
+        offer.clear()
+        offer.addAll(newDataOffer)
         notifyDataSetChanged()
     }
 }

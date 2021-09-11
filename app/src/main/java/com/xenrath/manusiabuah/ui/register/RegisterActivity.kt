@@ -8,9 +8,7 @@ import com.xenrath.manusiabuah.R
 import com.xenrath.manusiabuah.data.model.user.ResponseUser
 import com.xenrath.manusiabuah.ui.login.LoginActivity
 import com.xenrath.manusiabuah.utils.sweetalert.SweetAlertDialog
-import kotlinx.android.synthetic.main.activity_product_create.*
 import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.android.synthetic.main.activity_register.et_name
 
 class RegisterActivity : AppCompatActivity(), RegisterContract.View {
 
@@ -45,16 +43,19 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
                     validationError(et_name, "Nama tidak boleh kosong!")
                 }
                 email!!.isEmpty() -> {
-                    validationError(et_price, "Email tidak boleh kosong!")
+                    validationError(et_email, "Email tidak boleh kosong!")
                 }
                 password!!.isEmpty() -> {
-                    validationError(et_address, "Password tidak boleh kosong!")
+                    validationError(et_password, "Password tidak boleh kosong!")
                 }
                 passwordConfirmation!!.isEmpty() -> {
-                    validationError(et_address, "Konfirmasi password tidak boleh kosong!")
+                    validationError(
+                        et_password_confirmation,
+                        "Konfirmasi password tidak boleh kosong!"
+                    )
                 }
                 phone!!.isEmpty() -> {
-                    validationError(et_address, "Nomor telepon tidak boleh kosong!")
+                    validationError(et_phone, "Nomor telepon tidak boleh kosong!")
                 }
                 else -> {
                     presenter.doRegister(
@@ -67,10 +68,10 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
                     )
                 }
             }
+        }
 
-            btn_to_login.setOnClickListener {
-                startActivity(Intent(this, LoginActivity::class.java))
-            }
+        btn_to_login.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
         }
     }
 
@@ -82,12 +83,14 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
     }
 
     override fun onResult(responseUser: ResponseUser) {
-        if (responseUser.status) {
-            showAlertSuccess(responseUser.message)
-            finish()
+        val status: Boolean = responseUser.status
+        val message: String = responseUser.message!!
+
+        if (status) {
+            showAlertSuccess(message)
             startActivity(Intent(this, LoginActivity::class.java))
         } else {
-            showAlertError(responseUser.message)
+            showAlertError(message)
         }
     }
 

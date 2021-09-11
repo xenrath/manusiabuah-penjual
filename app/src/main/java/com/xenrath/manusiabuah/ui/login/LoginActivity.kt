@@ -28,6 +28,14 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         prefManager = PrefManager(this)
     }
 
+    override fun onStart() {
+        super.onStart()
+        if (prefManager.prefLogin) {
+            finish()
+            startActivity(Intent(this, MainActivity::class.java))
+        }
+    }
+
     override fun initActivity() {
         sLoading = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
         sSuccess = SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE).setTitleText("Berhasil")
@@ -55,12 +63,14 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     }
 
     override fun onResult(responseUser: ResponseUser) {
-        if (responseUser.status) {
+        val status: Boolean = responseUser.status
+        val message: String = responseUser.message!!
+
+        if (status) {
             presenter.setPref(prefManager, responseUser.user)
-            showAlertSuccess(responseUser.message)
-            startActivity(Intent(this, MainActivity::class.java))
+            showAlertSuccess(message)
         } else {
-            showAlertError(responseUser.message)
+            showAlertError(message)
         }
     }
 
@@ -70,7 +80,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
             .setConfirmText("OK")
             .setConfirmClickListener {
                 it.dismissWithAnimation()
-                finish()
+                startActivity(Intent(this, MainActivity::class.java))
             }
             .show()
     }

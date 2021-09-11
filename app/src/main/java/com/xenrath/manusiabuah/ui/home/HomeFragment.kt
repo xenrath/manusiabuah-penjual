@@ -6,33 +6,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
 import com.xenrath.manusiabuah.R
-import com.xenrath.manusiabuah.data.database.PrefManager
-import com.xenrath.manusiabuah.data.model.product.DataProduct
-import com.xenrath.manusiabuah.data.model.product.ResponseProductList
-import com.xenrath.manusiabuah.utils.sweetalert.SweetAlertDialog
-import kotlinx.android.synthetic.main.fragment_home.*
+import com.xenrath.manusiabuah.ui.home.tabs.list.ProductFragment
+import com.xenrath.manusiabuah.ui.home.tabs.seller.OtherFragment
 
 class HomeFragment : Fragment(), HomeContract.View {
 
     lateinit var presenter: HomePresenter
-    lateinit var prefManager: PrefManager
 
-    private lateinit var sLoading: SweetAlertDialog
-    private lateinit var etSeach: EditText
-
-    private lateinit var homeAdapter: HomeAdapter
-
-    private lateinit var rvProduct: RecyclerView
-    private lateinit var layoutEmptyProduct: LinearLayout
-    private lateinit var layoutEmptyProductSearch: LinearLayout
+    lateinit var tvTitle: TextView
+    private lateinit var ivBack: ImageView
+    private lateinit var ivHelp: ImageView
+    private lateinit var viewPager: ViewPager
+    lateinit var tabs: TabLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,80 +32,27 @@ class HomeFragment : Fragment(), HomeContract.View {
         val view: View = inflater.inflate(R.layout.fragment_home, container, false)
 
         presenter = HomePresenter(this)
-        prefManager = PrefManager(requireActivity())
 
-        initListener(view)
+        initFragment(view)
 
         return view
     }
 
-    override fun onStart() {
-        super.onStart()
-        presenter.getProduct(prefManager.prefId.toString(), "Tebasan")
-    }
-
     @SuppressLint("SetTextI18n")
-    override fun initListener(view: View) {
-        val ivBack = view.findViewById<ImageView>(R.id.iv_back)
-        val tvTitle = view.findViewById<TextView>(R.id.tv_title)
-        val ivHelp = view.findViewById<ImageView>(R.id.iv_help)
-
-        rvProduct = view.findViewById(R.id.rv_product)
-        layoutEmptyProduct = view.findViewById(R.id.layout_empty_product)
-        layoutEmptyProductSearch = view.findViewById(R.id.layout_empty_product_search)
-        etSeach = view.findViewById(R.id.et_search)
-
-        sLoading = SweetAlertDialog(requireActivity(), SweetAlertDialog.PROGRESS_TYPE)
+    override fun initFragment(view: View) {
+        tvTitle = view.findViewById(R.id.tv_title)
+        ivBack = view.findViewById(R.id.iv_back)
+        ivHelp = view.findViewById(R.id.iv_help)
+        viewPager = view.findViewById(R.id.view_pager)
+        tabs = view.findViewById(R.id.tabs)
 
         tvTitle.text = "Home"
         ivBack.visibility = View.GONE
-        ivHelp.visibility = View.GONE
 
-        homeAdapter = HomeAdapter(requireActivity(), ArrayList())
-        rvProduct.apply {
-            layoutManager = GridLayoutManager(requireActivity(), 2)
-            adapter = homeAdapter
-        }
-
-        etSeach.setOnEditorActionListener { _, i, _ ->
-            if (i == EditorInfo.IME_ACTION_SEARCH) {
-                presenter.searchProduct(et_search.text.toString())
-                true
-            } else {
-                false
-            }
-        }
+        val adapter = HomeViewPagerAdapter(requireActivity().supportFragmentManager)
+        adapter.addFragment(OtherFragment(), "Beli Produk")
+        adapter.addFragment(ProductFragment(), "Produk Saya")
+        viewPager.adapter = adapter
+        tabs.setupWithViewPager(viewPager)
     }
-
-    override fun onResultList(responseProductList: ResponseProductList) {
-        val products: List<DataProduct> = responseProductList.products!!
-        if (products.isEmpty()) {
-            rvProduct.visibility = View.GONE
-            layoutEmptyProduct.visibility = View.VISIBLE
-        } else {
-            rvProduct.visibility = View.VISIBLE
-            layoutEmptyProduct.visibility = View.GONE
-            homeAdapter.setData(products)
-        }
-    }
-
-    override fun onResultSearch(responseProductList: ResponseProductList) {
-        val products: List<DataProduct> = responseProductList.products!!
-        if (products.isEmpty()) {
-            rvProduct.visibility = View.GONE
-            layoutEmptyProductSearch.visibility = View.VISIBLE
-        } else {
-            rvProduct.visibility = View.VISIBLE
-            layoutEmptyProductSearch.visibility = View.GONE
-            homeAdapter.setData(products)
-        }
-    }
-
-    override fun onLoading(loading: Boolean, message: String?) {
-        when (loading) {
-            true -> sLoading.setTitleText(message).show()
-            false -> sLoading.dismiss()
-        }
-    }
-
 }

@@ -16,10 +16,9 @@ interface AddressContract {
     interface View {
         fun initActivity()
         fun initListener()
-        fun onLoading(loading: Boolean)
+        fun onLoading(loading: Boolean, message: String? = "Loading...")
         fun onResultList(responseAddressList: ResponseAddressList)
         fun onResultChoice(responseAddressUpdate: ResponseAddressUpdate)
-        fun showMessage(message: String)
     }
 
 }
