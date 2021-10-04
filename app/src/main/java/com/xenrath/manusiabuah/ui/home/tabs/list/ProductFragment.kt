@@ -155,19 +155,23 @@ class ProductFragment : Fragment(), ProductContract.View, OnMapReadyCallback {
     }
 
     override fun onResultDelete(responseProductUpdate: ResponseProductUpdate) {
-        if (responseProductUpdate.status) {
-            showAlertSuccess(responseProductUpdate.message)
+        val status: Boolean = responseProductUpdate.status
+        val message: String = responseProductUpdate.message!!
+
+        if (status) {
+            showAlertSuccess(message)
         } else {
-            showAlertError(responseProductUpdate.message)
+            showAlertError(message)
         }
     }
 
     override fun onResultSearch(responseProductList: ResponseProductList) {
         val status: Boolean = responseProductList.status
         val message: String = responseProductList.message!!
-        val products: List<DataProduct> = responseProductList.products!!
 
         if (status) {
+            val products: List<DataProduct> = responseProductList.products!!
+
             layoutSearch.visibility = View.VISIBLE
             rvProduct.visibility = View.VISIBLE
             layoutEmpty.visibility = View.GONE
@@ -187,7 +191,7 @@ class ProductFragment : Fragment(), ProductContract.View, OnMapReadyCallback {
         if (status) {
             startActivity(Intent(requireActivity(), ProductCreateActivity::class.java))
         } else {
-            showErrorAccount(message)
+            showAlertAccount(message)
         }
     }
 
@@ -207,20 +211,25 @@ class ProductFragment : Fragment(), ProductContract.View, OnMapReadyCallback {
             .setContentText(message)
             .setConfirmText("OK")
             .setConfirmClickListener {
-                it.dismissWithAnimation()
+                it.dismiss()
             }
             .show()
     }
 
-    override fun showErrorAccount(message: String) {
-        sError
-            .setContentText(message)
-            .setConfirmText("OK")
+    override fun showAlertAccount(message: String) {
+        sAlert
+            .setContentText("$message\nTambahkan sekarang?")
+            .setConfirmText("Lanjutkan")
             .setConfirmClickListener {
                 it.dismissWithAnimation()
                 startActivity(Intent(requireActivity(), AccountActivity::class.java))
             }
+            .setCancelText("Batal")
+            .setCancelClickListener {
+                it.dismiss()
+            }
             .show()
+        sAlert.setCancelable(true)
     }
 
     override fun showAlertDelete(dataProduct: DataProduct, position: Int) {

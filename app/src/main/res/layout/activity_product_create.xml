@@ -289,21 +289,6 @@
                 android:layout_marginTop="20dp"
                 android:visibility="gone" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_location"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/background_stroke_teal"
-                android:fontFamily="@font/poppins"
-                android:paddingHorizontal="14dp"
-                android:text="Titik Lokasi"
-                android:textAllCaps="false"
-                android:textColor="@color/colorBlack"
-                android:textSize="12sp"
-                tools:ignore="HardcodedText" />
-
             <LinearLayout
                 android:id="@+id/layout_location"
                 android:layout_width="match_parent"
@@ -343,13 +328,20 @@
 
             </LinearLayout>
 
-            <ProgressBar
-                android:id="@+id/pb_location"
-                android:layout_width="32dp"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_location"
+                android:layout_width="wrap_content"
                 android:layout_height="32dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                android:visibility="gone" />
+                android:background="@drawable/background_stroke_teal"
+                android:fontFamily="@font/poppins"
+                android:paddingHorizontal="14dp"
+                android:text="Titik Lokasi"
+                android:textAllCaps="false"
+                android:textColor="@color/colorBlack"
+                android:textSize="12sp"
+                tools:ignore="HardcodedText" />
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/iv_image"

@@ -8,42 +8,39 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class OfferDetailPresenter(val view: OfferDetailContract.View) : OfferDetailContract.Presenter {
-
     init {
         view.initActivity()
         view.initListener()
     }
 
     override fun offerDetail(id: Long) {
-        view.onLoadingGet(true)
+        view.onLoading(true, "Menampilkan detail tawaran...")
         ApiService.endPoint.offerDetail(id).enqueue(object : Callback<ResponseOfferDetail> {
             override fun onResponse(
                 call: Call<ResponseOfferDetail>,
                 response: Response<ResponseOfferDetail>
             ) {
-                view.onLoadingGet(false)
-                if (response.isSuccessful) {
-                    val responseOfferDetail: ResponseOfferDetail? = response.body()
-                    view.onResult(responseOfferDetail!!)
-                }
+                view.onLoading(false)
+                val responseOfferDetail: ResponseOfferDetail? = response.body()
+                view.onResultDetail(responseOfferDetail!!)
             }
 
             override fun onFailure(call: Call<ResponseOfferDetail>, t: Throwable) {
-                view.onLoadingGet(false)
+                view.onLoading(false)
             }
 
         })
     }
 
-    override fun offerCanceled(id: Long) {
-        view.onLoadingAction(true)
-        ApiService.endPoint.offerCanceled(id, "PUT")
+    override fun offerCanceled(offer_id: Long) {
+        view.onLoading(true, "Membatalkan tawaran...")
+        ApiService.endPoint.offerCanceled(offer_id, "PUT")
             .enqueue(object : Callback<ResponseOfferUpdate> {
                 override fun onResponse(
                     call: Call<ResponseOfferUpdate>,
                     response: Response<ResponseOfferUpdate>
                 ) {
-                    view.onLoadingAction(false)
+                    view.onLoading(false)
                     if (response.isSuccessful) {
                         val responseOfferUpdate: ResponseOfferUpdate? = response.body()
                         view.onResultUpdate(responseOfferUpdate!!)
@@ -51,11 +48,9 @@ class OfferDetailPresenter(val view: OfferDetailContract.View) : OfferDetailCont
                 }
 
                 override fun onFailure(call: Call<ResponseOfferUpdate>, t: Throwable) {
-                    view.onLoadingAction(false)
+                    view.onLoading(false)
                 }
 
             })
     }
-
-
 }

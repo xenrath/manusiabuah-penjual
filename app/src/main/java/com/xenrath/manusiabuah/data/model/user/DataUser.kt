@@ -10,5 +10,6 @@ data class DataUser(
     @SerializedName("phone") val phone: String?,
     @SerializedName("address") val address: String? = null,
     @SerializedName("image") val image: String? = null,
-    @SerializedName("level") val level: String?
+    @SerializedName("level") val level: String?,
+    @SerializedName("fcm") val fcm: String?
 )

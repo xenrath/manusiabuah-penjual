@@ -13,13 +13,14 @@ class RegisterPresenter(val view: RegisterContract.View) : RegisterContract.Pres
         view.initListener()
     }
 
-    override fun doRegister(
+    override fun userRegister(
         name: String,
         email: String,
         password: String,
         password_confirmation: String,
         phone: String,
-        level: String
+        level: String,
+        fcm: String
     ) {
         view.onLoading(true, "Melakukan pendaftaran...")
         ApiService.endPoint.userRegister(
@@ -28,7 +29,8 @@ class RegisterPresenter(val view: RegisterContract.View) : RegisterContract.Pres
             password,
             password_confirmation,
             phone,
-            level
+            level,
+            fcm
         ).enqueue(object : Callback<ResponseUser> {
             override fun onResponse(
                 call: Call<ResponseUser>,

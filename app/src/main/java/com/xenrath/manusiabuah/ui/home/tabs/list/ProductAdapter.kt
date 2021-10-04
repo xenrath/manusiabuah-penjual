@@ -40,7 +40,7 @@ class ProductAdapter(
         GlideHelper.setImage(context, product.image!!, holder.ivImage)
         holder.tvName.text = product.name
         holder.tvPrice.text = CurrencyHelper.changeToRupiah(product.price.toString())
-        holder.tvStock.text = product.stock
+        holder.tvStock.text = product.stock.toString()
 //        holder.cvProduct.setOnClickListener {
 //            Constant.PRODUCT_ID = dataProduct[position].id!!
 //            clickListener(dataProduct[position], position, "detail")

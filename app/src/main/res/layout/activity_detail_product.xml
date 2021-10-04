@@ -37,7 +37,7 @@
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/iv_product_image"
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
+                android:layout_height="200dp"
                 android:background="@drawable/background_stroke_teal"
                 android:padding="2dp"
                 android:scaleType="centerCrop"
@@ -62,8 +62,8 @@
 
                     <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/iv_user_image"
-                        android:layout_width="38dp"
-                        android:layout_height="38dp"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_profile"
                         app:riv_oval="true" />
@@ -83,7 +83,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/btn_user"
+                    android:id="@+id/tv_user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -91,8 +91,8 @@
                     android:fontFamily="@font/poppins"
                     android:text="@string/detail_user"
                     android:textColor="@color/customInfo"
-                    android:textSize="10sp"
-                    tools:ignore="HardcodedText,SmallSp" />
+                    android:textSize="12sp"
+                    tools:ignore="HardcodedText" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -254,6 +254,59 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Komentar Terkait"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="12sp"
+                        tools:ignore="HardcodedText" />
+
+                    <androidx.core.widget.NestedScrollView
+                        android:id="@+id/sv_comment"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="5dp"
+                        android:visibility="gone">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_comment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:itemCount="5"
+                            tools:listitem="@layout/adapter_comment" />
+
+                    </androidx.core.widget.NestedScrollView>
+
+                    <TextView
+                        android:id="@+id/tv_empty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/poppins_light"
+                        android:gravity="center"
+                        android:text="Comment Message"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="12sp"
+                        tools:ignore="HardcodedText" />
+
+                    <ProgressBar
+                        android:id="@+id/progress_bar"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>
@@ -269,7 +322,7 @@
         android:padding="10dp">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_bargain"
+            android:id="@+id/btn_offer"
             android:layout_width="0dp"
             android:layout_height="38dp"
             android:layout_weight="1"

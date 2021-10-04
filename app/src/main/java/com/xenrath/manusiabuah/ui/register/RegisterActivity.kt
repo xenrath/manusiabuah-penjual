@@ -3,7 +3,10 @@ package com.xenrath.manusiabuah.ui.register
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.xenrath.manusiabuah.R
 import com.xenrath.manusiabuah.data.model.user.ResponseUser
 import com.xenrath.manusiabuah.ui.login.LoginActivity
@@ -18,6 +21,8 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
     private lateinit var sSuccess: SweetAlertDialog
     private lateinit var sError: SweetAlertDialog
 
+    private lateinit var fcm: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
@@ -29,6 +34,8 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
         sLoading = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
         sSuccess = SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE).setTitleText("Berhasil")
         sError = SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE).setTitleText("Gagal!")
+
+        fcmToken()
     }
 
     override fun initListener() {
@@ -58,13 +65,14 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
                     validationError(et_phone, "Nomor telepon tidak boleh kosong!")
                 }
                 else -> {
-                    presenter.doRegister(
+                    presenter.userRegister(
                         name.toString(),
                         email.toString(),
                         password.toString(),
                         passwordConfirmation.toString(),
                         phone.toString(),
-                        "Seller"
+                        "Seller",
+                        fcm
                     )
                 }
             }
@@ -73,6 +81,22 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
         btn_to_login.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
         }
+    }
+
+    override fun fcmToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("Response", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+            fcm = token.toString()
+
+            // Log and toast
+            Log.d("Response FCM : ", token.toString())
+        })
     }
 
     override fun onLoading(loading: Boolean, message: String?) {

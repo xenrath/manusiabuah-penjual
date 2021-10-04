@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".ui.offer.OfferActivity">
+    tools:context=".ui.transaction.TransactionActivity">
 
     <LinearLayout
         android:id="@+id/toolbar"
@@ -24,7 +24,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@drawable/background_stroke_teal">
+            android:background="@drawable/background_stroke_teal"
+            android:orientation="vertical">
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabs"
@@ -36,6 +37,58 @@
                 app:tabGravity="fill"
                 app:tabMode="fixed"
                 app:tabTextAppearance="@style/CustomTabsStyleLetterSmall" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_light"
+                android:gravity="center"
+                android:text="Menunggu"
+                android:textColor="@color/colorBlack"
+                android:textSize="10sp"
+                tools:ignore="HardcodedText,SmallSp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_light"
+                android:gravity="center"
+                android:text="Dikemas"
+                android:textColor="@color/colorBlack"
+                android:textSize="10sp"
+                tools:ignore="HardcodedText,SmallSp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_light"
+                android:gravity="center"
+                android:text="Dikirim"
+                android:textColor="@color/colorBlack"
+                android:textSize="10sp"
+                tools:ignore="HardcodedText,SmallSp,Suspicious0dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_light"
+                android:gravity="center"
+                android:text="Selesai"
+                android:textColor="@color/colorBlack"
+                android:textSize="10sp"
+                tools:ignore="HardcodedText,SmallSp,Suspicious0dp" />
 
         </LinearLayout>
 

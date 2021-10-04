@@ -23,7 +23,7 @@ class ProductUpdatePresenter(val view: ProductUpdateContract.View) :
         view.initListener()
     }
 
-    override fun getDetail(id: Long) {
+    override fun productDetail(id: Long) {
         view.onLoading(true, "Menampilkan data produk...")
         ApiService.endPoint.productDetail(id).enqueue(object :
             Callback<ResponseProductDetail> {
@@ -89,7 +89,7 @@ class ProductUpdatePresenter(val view: ProductUpdateContract.View) :
             })
     }
 
-    override fun updateProduct(
+    override fun productUpdate(
         id: Long,
         name: String,
         price: String,

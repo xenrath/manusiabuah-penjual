@@ -1,8 +1,8 @@
 package com.xenrath.manusiabuah.ui.account.create
 
 import android.widget.EditText
-import com.xenrath.manusiabuah.data.model.account.ResponseAccountList
 import com.xenrath.manusiabuah.data.model.account.ResponseAccountUpdate
+import com.xenrath.manusiabuah.data.model.bank.DataBank
 import com.xenrath.manusiabuah.data.model.bank.ResponseBankList
 
 interface AccountCreateContract {
@@ -24,6 +24,7 @@ interface AccountCreateContract {
         fun onLoadingBank(loading: Boolean)
         fun onResult(responseAccountUpdate: ResponseAccountUpdate)
         fun onResultBank(responseBankList: ResponseBankList)
+        fun spinBank(banks: List<DataBank>)
         fun showAlertSuccess(message: String)
         fun showAlertError(message: String)
         fun validationError(editText: EditText, message: String)

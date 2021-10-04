@@ -8,7 +8,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoginPresenter(val view: LoginContract.View): LoginContract.Presenter {
+class LoginPresenter(val view: LoginContract.View) : LoginContract.Presenter {
 
     init {
         view.initActivity()
@@ -16,13 +16,19 @@ class LoginPresenter(val view: LoginContract.View): LoginContract.Presenter {
         view.onLoading(false)
     }
 
-    override fun doLogin(email: String, password: String, level: String) {
+    override fun userLogin(
+        email: String,
+        password: String,
+        level: String,
+        fcm: String
+    ) {
         view.onLoading(true, "Melakukan login...")
         ApiService.endPoint.userLogin(
             email,
             password,
-            level
-        ).enqueue(object: Callback<ResponseUser> {
+            level,
+            fcm
+        ).enqueue(object : Callback<ResponseUser> {
             override fun onResponse(
                 call: Call<ResponseUser>,
                 response: Response<ResponseUser>

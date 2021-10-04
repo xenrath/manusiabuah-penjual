@@ -6,19 +6,21 @@ import com.xenrath.manusiabuah.data.model.user.ResponseUser
 interface RegisterContract {
 
     interface Presenter {
-        fun doRegister(
+        fun userRegister(
             name: String,
             email: String,
             password: String,
             password_confirmation: String,
             phone: String,
-            level: String
+            level: String,
+            fcm: String
         )
     }
 
     interface View {
         fun initActivity()
         fun initListener()
+        fun fcmToken()
         fun onLoading(loading: Boolean, message: String? = "Loading")
         fun onResult(responseUser: ResponseUser)
         fun showAlertSuccess(message: String)

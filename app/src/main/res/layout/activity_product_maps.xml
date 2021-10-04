@@ -48,6 +48,7 @@
         android:fontFamily="@font/poppins_medium"
         android:text="Simpan Titik Lokasi"
         android:textColor="@color/colorWhite"
+        android:textSize="12sp"
         tools:ignore="HardcodedText" />
 
 </RelativeLayout>

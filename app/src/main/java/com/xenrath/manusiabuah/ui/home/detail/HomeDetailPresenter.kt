@@ -1,5 +1,6 @@
 package com.xenrath.manusiabuah.ui.home.detail
 
+import com.xenrath.manusiabuah.data.model.comment.ResponseCommentList
 import com.xenrath.manusiabuah.data.model.product.ResponseProductDetail
 import com.xenrath.manusiabuah.data.model.offer.ResponseOfferUpdate
 import com.xenrath.manusiabuah.network.ApiService
@@ -14,7 +15,7 @@ class HomeDetailPresenter(val view: HomeDetailContract.View): HomeDetailContract
         view.initListener()
     }
 
-    override fun getDetail(id: Long) {
+    override fun productDetail(id: Long) {
         view.onLoadingDetail(true, "Menampilkan detail produk...")
         ApiService.endPoint.productDetail(id).enqueue(object : Callback<ResponseProductDetail> {
             override fun onResponse(
@@ -35,7 +36,7 @@ class HomeDetailPresenter(val view: HomeDetailContract.View): HomeDetailContract
         })
     }
 
-    override fun bargainProduct(
+    override fun offerCreate(
         user_id: String,
         product_id: String,
         price: String,
@@ -43,7 +44,7 @@ class HomeDetailPresenter(val view: HomeDetailContract.View): HomeDetailContract
         total_item: String,
         status: String
     ) {
-        view.onLoadingBottomSheet(true)
+        view.onLoadingDetail(true)
         ApiService.endPoint.offerPrice(
             user_id,
             product_id,
@@ -56,17 +57,37 @@ class HomeDetailPresenter(val view: HomeDetailContract.View): HomeDetailContract
                 call: Call<ResponseOfferUpdate>,
                 response: Response<ResponseOfferUpdate>
             ) {
-                view.onLoadingBottomSheet(false)
+                view.onLoadingDetail(false)
                 if (response.isSuccessful) {
                     val responseOfferUpdate: ResponseOfferUpdate? = response.body()
-                    view.onResultBargain(responseOfferUpdate!!)
+                    view.onResultOffer(responseOfferUpdate!!)
                 }
             }
 
             override fun onFailure(call: Call<ResponseOfferUpdate>, t: Throwable) {
-                view.onLoadingBottomSheet(false)
+                view.onLoadingDetail(false)
             }
 
+        })
+    }
+
+    override fun commentList(id: Long) {
+        view.onLoadingComment(true)
+        ApiService.endPoint.commentList(id).enqueue(object : Callback<ResponseCommentList>{
+            override fun onResponse(
+                call: Call<ResponseCommentList>,
+                response: Response<ResponseCommentList>
+            ) {
+                view.onLoadingDetail(false)
+                if (response.isSuccessful) {
+                    val responseCommentList: ResponseCommentList? = response.body()
+                    view.onResultComment(responseCommentList!!)
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseCommentList>, t: Throwable) {
+                view.onLoadingComment(false)
+            }
         })
     }
 }

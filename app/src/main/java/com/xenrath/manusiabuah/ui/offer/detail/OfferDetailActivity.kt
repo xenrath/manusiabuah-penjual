@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.xenrath.manusiabuah.R
 import com.xenrath.manusiabuah.data.Constant
@@ -15,7 +14,7 @@ import com.xenrath.manusiabuah.ui.order.OrderActivity
 import com.xenrath.manusiabuah.utils.CurrencyHelper
 import com.xenrath.manusiabuah.utils.GlideHelper
 import com.xenrath.manusiabuah.utils.sweetalert.SweetAlertDialog
-import kotlinx.android.synthetic.main.activity_my_bargain_detail.*
+import kotlinx.android.synthetic.main.activity_offer_detail.*
 import kotlinx.android.synthetic.main.toolbar_custom.*
 
 class OfferDetailActivity : AppCompatActivity(), OfferDetailContract.View {
@@ -24,105 +23,137 @@ class OfferDetailActivity : AppCompatActivity(), OfferDetailContract.View {
 
     lateinit var offer: DataOffer
 
-    lateinit var sLoading: SweetAlertDialog
+    private lateinit var sLoading: SweetAlertDialog
+    private lateinit var sSuccess: SweetAlertDialog
+    private lateinit var sError: SweetAlertDialog
+    private lateinit var sAlert: SweetAlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_my_bargain_detail)
+        setContentView(R.layout.activity_offer_detail)
 
         presenter = OfferDetailPresenter(this)
     }
 
     override fun onStart() {
         super.onStart()
-        presenter.offerDetail(Constant.BARGAIN_ID)
+        presenter.offerDetail(Constant.OFFER_ID)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Constant.BARGAIN_ID = 0
+        Constant.OFFER_ID = 0
     }
 
     @SuppressLint("SetTextI18n")
     override fun initActivity() {
         tv_title.text = "Detail Tawaran"
+
+        sLoading = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
+        sSuccess = SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE).setTitleText("Berhasil")
+        sError = SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE).setTitleText("Gagal!")
+        sAlert = SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE).setTitleText("Konfirmasi!")
     }
 
     override fun initListener() {
         iv_back.setOnClickListener {
             onBackPressed()
         }
-        iv_help.setOnClickListener {
-
-        }
         btn_cancel.setOnClickListener {
-            SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("Konfirmasi")
-                .setContentText("Yakin membatalkan tawaran?")
-                .setConfirmText("Ya, batalkan")
-                .setConfirmClickListener {
-                    it.dismissWithAnimation()
-                    presenter.offerCanceled(offer.id!!)
-                }
-                .setCancelText("Tutup")
-                .setCancelClickListener {
-                    it.dismissWithAnimation()
-                }.show()
+            showAlert()
+        }
+        btn_order.setOnClickListener {
+            Constant.PRODUCT_ID = offer.product!!.id!!
+            startActivity(Intent(this, OrderActivity::class.java))
         }
     }
 
-    override fun onLoadingGet(loading: Boolean, message: String?) {
+    override fun onLoading(loading: Boolean, message: String?) {
         when (loading) {
             true -> sLoading.setTitleText(message).show()
             false -> sLoading.dismiss()
         }
     }
 
-    override fun onLoadingAction(loading: Boolean) {
-        val progress = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
-        when (loading) {
-            true -> progress.show()
-            false -> progress.dismiss()
-        }
-    }
+    override fun onResultDetail(responseOfferDetail: ResponseOfferDetail) {
+        val status: Boolean = responseOfferDetail.status
+        val message: String = responseOfferDetail.message!!
 
-    override fun onResult(responseOfferDetail: ResponseOfferDetail) {
-        offer = responseOfferDetail.offer!!
-        val product = offer.product!!
-        val user = product.user!!
+        if (status) {
+            offer = responseOfferDetail.offer!!
+            val product = offer.product!!
+            val user = product.user!!
 
-        tv_status.text = offer.status
-        GlideHelper.setImage(this, product.image!!, iv_product)
-        tv_product_name.text = product.name
-        tv_price.text = CurrencyHelper.changeToRupiah(offer.price!!)
-        tv_price_offer.text = CurrencyHelper.changeToRupiah(offer.price_offer!!)
-        tv_total_item.text = offer.total_item
-        tv_user_name.text = user.name
+            tv_status.text = offer.status
+            GlideHelper.setImage(this, product.image!!, iv_product)
+            tv_product_name.text = product.name
+            tv_price.text = CurrencyHelper.changeToRupiah(offer.price!!)
+            tv_price_offer.text = CurrencyHelper.changeToRupiah(offer.price_offer!!)
+            tv_total_item.text = offer.total_item
+            tv_user_name.text = user.name
 
-        btn_order.setOnClickListener {
-            Constant.BARGAIN_ID = offer.id!!
-            startActivity(Intent(this, OrderActivity::class.java))
-        }
-
-        when (offer.status) {
-            "Menunggu" -> {
-                btn_order.visibility = View.GONE
+            when (offer.status) {
+                "Menunggu" -> {
+                    btn_order.visibility = View.GONE
+                }
+                "Diterima" -> {
+                    btn_cancel.visibility = View.GONE
+                }
+                else -> {
+                    btn_order.visibility = View.GONE
+                    btn_cancel.visibility = View.GONE
+                }
             }
-            "Diterima" -> {
-                btn_cancel.visibility = View.GONE
-            }
-            else -> {
-                btn_order.visibility = View.GONE
-                btn_cancel.visibility = View.GONE
-            }
+        } else {
+            showError(message)
         }
     }
 
     override fun onResultUpdate(responseOfferUpdate: ResponseOfferUpdate) {
-        showMessage(responseOfferUpdate.message!!)
+        val status: Boolean = responseOfferUpdate.status
+        val message: String = responseOfferUpdate.message!!
+
+        if (status) {
+            showSuccess(message)
+        } else {
+            showError(message)
+        }
     }
 
-    override fun showMessage(message: String) {
-        Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
+    override fun showSuccess(message: String) {
+        sSuccess
+            .setContentText(message)
+            .setConfirmText("OK")
+            .setConfirmClickListener {
+                it.dismissWithAnimation()
+                finish()
+            }
+            .show()
+    }
+
+    override fun showError(message: String) {
+        sError
+            .setContentText(message)
+            .setConfirmText("OK")
+            .setConfirmClickListener {
+                it.dismiss()
+            }
+            .show()
+    }
+
+    override fun showAlert() {
+        sAlert
+            .setContentText("Yakin membatalkan tawaran?")
+            .setConfirmText("Ya, batalkan")
+            .setConfirmClickListener {
+                it.dismissWithAnimation()
+                presenter.offerCanceled(offer.id!!)
+            }
+            .setCancelText("Tutup")
+            .setCancelClickListener {
+                it.dismiss()
+            }
+            .show()
+        sAlert.setCancelable(true)
     }
 }

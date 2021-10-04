@@ -13,7 +13,7 @@ import com.xenrath.manusiabuah.R
 import com.xenrath.manusiabuah.data.database.PrefManager
 import com.xenrath.manusiabuah.data.model.offer.DataOffer
 import com.xenrath.manusiabuah.data.model.offer.ResponseOfferList
-import com.xenrath.manusiabuah.ui.manage.offer.OfferManageAdapter
+import com.xenrath.manusiabuah.ui.offer.manage.OfferManageAdapter
 import com.xenrath.manusiabuah.utils.sweetalert.SweetAlertDialog
 
 class OfferManageWaitingFragment : Fragment(), OfferManageWaitingContract.View {
@@ -34,7 +34,7 @@ class OfferManageWaitingFragment : Fragment(), OfferManageWaitingContract.View {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_manage_bargain, container, false)
+        val view = inflater.inflate(R.layout.fragment_offer, container, false)
 
         prefManager = PrefManager(requireActivity())
         presenterOffer = OfferManageWaitingPresenter(this)

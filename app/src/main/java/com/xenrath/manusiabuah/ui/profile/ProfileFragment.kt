@@ -27,7 +27,6 @@ class ProfileFragment : Fragment(), ProfileContract.View {
 
     lateinit var tvTitle: TextView
     private lateinit var ivBack: ImageView
-    private lateinit var ivHelp: ImageView
 
     private lateinit var tvName: TextView
     private lateinit var btnUpdateProfile: TextView
@@ -58,7 +57,6 @@ class ProfileFragment : Fragment(), ProfileContract.View {
     override fun initFragment(view: View) {
         tvTitle = view.findViewById(R.id.tv_title)
         ivBack = view.findViewById(R.id.iv_back)
-        ivHelp = view.findViewById(R.id.iv_help)
         tvName = view.findViewById(R.id.tv_name)
         btnUpdateProfile = view.findViewById(R.id.btn_update_profile)
         btnAccount = view.findViewById(R.id.btn_account)
@@ -78,9 +76,6 @@ class ProfileFragment : Fragment(), ProfileContract.View {
 
         tvTitle.text = "Profile"
         ivBack.visibility = View.GONE
-        ivHelp.setOnClickListener {
-
-        }
         btnLogout.setOnClickListener {
             showAlert()
         }

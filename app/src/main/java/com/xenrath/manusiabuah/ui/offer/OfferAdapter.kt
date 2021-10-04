@@ -27,7 +27,7 @@ class OfferAdapter(
         val tvPrice = view.findViewById<TextView>(R.id.tv_price)!!
         val tvPriceOffer = view.findViewById<TextView>(R.id.tv_price_offer)!!
         val tvStatus = view.findViewById<TextView>(R.id.tv_status)!!
-        val layoutBargain = view.findViewById<LinearLayout>(R.id.layout_bargain)!!
+        val layoutBargain = view.findViewById<LinearLayout>(R.id.layout_transaction)!!
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -38,18 +38,18 @@ class OfferAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val bargain = offer[position]
-        val product = bargain.product!!
+        val offer = offer[position]
+        val product = offer.product!!
 
         holder.tvProductName.text = product.name
-        holder.tvPrice.text = CurrencyHelper.changeToRupiah(bargain.price!!)
+        holder.tvPrice.text = CurrencyHelper.changeToRupiah(offer.price!!)
         holder.tvPrice.paintFlags = holder.tvPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-        holder.tvPriceOffer.text = CurrencyHelper.changeToRupiah(bargain.price_offer!!)
-        holder.tvTotalItem.text = "${bargain.total_item} (kg)"
-        holder.tvStatus.text = bargain.status
+        holder.tvPriceOffer.text = CurrencyHelper.changeToRupiah(offer.price_offer!!)
+        holder.tvTotalItem.text = "${offer.total_item} (kg)"
+        holder.tvStatus.text = offer.status
 
         var color = context.getColor(R.color.wait)
-        when (bargain.status) {
+        when (offer.status) {
             "Menunggu" -> color = context.getColor(R.color.customWarning)
             "Diterima" -> color = context.getColor(R.color.customPrimary)
             "Dibatalkan" -> color = context.getColor(R.color.customDanger)
@@ -59,7 +59,7 @@ class OfferAdapter(
         holder.tvStatus.setTextColor(color)
 
         holder.layoutBargain.setOnClickListener {
-            Constant.BARGAIN_ID = bargain.id!!
+            Constant.OFFER_ID = offer.id!!
             context.startActivity(Intent(context, OfferDetailActivity::class.java))
         }
     }

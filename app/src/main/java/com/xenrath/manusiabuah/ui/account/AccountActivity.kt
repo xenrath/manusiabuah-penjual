@@ -69,6 +69,9 @@ class AccountActivity : AppCompatActivity(), AccountContract.View {
     }
 
     override fun initListener() {
+        iv_back.setOnClickListener {
+            onBackPressed()
+        }
         btn_add.setOnClickListener {
             startActivity(Intent(this, AccountCreateActivity::class.java))
         }
@@ -84,8 +87,10 @@ class AccountActivity : AppCompatActivity(), AccountContract.View {
     override fun onResultList(responseAccountList: ResponseAccountList) {
         val status: Boolean = responseAccountList.status
         val message: String = responseAccountList.message!!
-        val accounts: List<DataAccount> = responseAccountList.accounts!!
+
         if (status) {
+            val accounts: List<DataAccount> = responseAccountList.accounts!!
+
             layout_empty.visibility = View.GONE
             rv_account.visibility = View.VISIBLE
             accountAdapter.setData(accounts)
@@ -97,10 +102,13 @@ class AccountActivity : AppCompatActivity(), AccountContract.View {
     }
 
     override fun onResultDelete(responseAccountUpdate: ResponseAccountUpdate) {
-        if (responseAccountUpdate.status) {
-            showAlertSuccess(responseAccountUpdate.message)
+        val status: Boolean = responseAccountUpdate.status
+        val message: String = responseAccountUpdate.message!!
+
+        if (status) {
+            showAlertSuccess(message)
         } else {
-            showAlertError(responseAccountUpdate.message)
+            showAlertError(message)
         }
     }
 

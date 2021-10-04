@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xenrath.manusiabuah.R
 import com.xenrath.manusiabuah.data.database.PrefManager
-import com.xenrath.manusiabuah.data.model.offer.DataOffer
-import com.xenrath.manusiabuah.data.model.offer.ResponseOfferList
-import com.xenrath.manusiabuah.ui.manage.offer.OfferManageAdapter
+import com.xenrath.manusiabuah.data.model.transaction.DataTransaction
+import com.xenrath.manusiabuah.data.model.transaction.ResponseTransactionList
+import com.xenrath.manusiabuah.ui.transaction.TransactionAdapter
 import com.xenrath.manusiabuah.utils.sweetalert.SweetAlertDialog
 
 class TransactionPackedFragment : Fragment(), TransactionPackedContract.View {
@@ -21,11 +21,11 @@ class TransactionPackedFragment : Fragment(), TransactionPackedContract.View {
     lateinit var prefManager: PrefManager
     lateinit var presenter: TransactionPackedPresenter
 
-    private lateinit var adapterOffer: OfferManageAdapter
+    private lateinit var adapterTransaction: TransactionAdapter
 
     private lateinit var sLoading: SweetAlertDialog
 
-    private lateinit var rvBargain: RecyclerView
+    private lateinit var rvTransaction: RecyclerView
     private lateinit var layoutEmpty: LinearLayout
     private lateinit var tvEmpty: TextView
 
@@ -34,7 +34,7 @@ class TransactionPackedFragment : Fragment(), TransactionPackedContract.View {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_manage_bargain, container, false)
+        val view = inflater.inflate(R.layout.fragment_transaction, container, false)
 
         prefManager = PrefManager(requireActivity())
         presenter = TransactionPackedPresenter(this)
@@ -46,22 +46,22 @@ class TransactionPackedFragment : Fragment(), TransactionPackedContract.View {
 
     override fun onStart() {
         super.onStart()
-        presenter.getBargainHistory(prefManager.prefId.toString(), "Selesai")
+        presenter.transactionPacked(prefManager.prefId)
     }
 
     override fun initFragment(view: View) {
-        rvBargain = view.findViewById(R.id.rv_bargain)
+        rvTransaction = view.findViewById(R.id.rv_transaction)
         layoutEmpty = view.findViewById(R.id.layout_empty)
         tvEmpty = view.findViewById(R.id.tv_empty)
 
         sLoading = SweetAlertDialog(requireActivity(), SweetAlertDialog.PROGRESS_TYPE)
 
-        adapterOffer = OfferManageAdapter(requireActivity(), ArrayList())
+        adapterTransaction = TransactionAdapter(requireActivity(), ArrayList())
 
         val layoutManager = LinearLayoutManager(activity)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
-        rvBargain.adapter = adapterOffer
-        rvBargain.layoutManager = layoutManager
+        rvTransaction.adapter = adapterTransaction
+        rvTransaction.layoutManager = layoutManager
     }
 
     override fun onLoading(loading: Boolean, message: String?) {
@@ -71,17 +71,17 @@ class TransactionPackedFragment : Fragment(), TransactionPackedContract.View {
         }
     }
 
-    override fun onResult(responseOfferList: ResponseOfferList) {
-        val status: Boolean = responseOfferList.status
-        val message: String = responseOfferList.message!!
-        val offers: List<DataOffer> = responseOfferList.offers!!
+    override fun onResult(responseTransactionList: ResponseTransactionList) {
+        val status: Boolean = responseTransactionList.status
+        val message: String = responseTransactionList.message!!
+        val transactions: List<DataTransaction> = responseTransactionList.transactions!!
 
         if (status) {
-            rvBargain.visibility = View.VISIBLE
+            rvTransaction.visibility = View.VISIBLE
             layoutEmpty.visibility = View.GONE
-            adapterOffer.setData(offers)
+            adapterTransaction.setData(transactions)
         } else {
-            rvBargain.visibility = View.GONE
+            rvTransaction.visibility = View.GONE
             layoutEmpty.visibility = View.VISIBLE
             tvEmpty.text = message
         }

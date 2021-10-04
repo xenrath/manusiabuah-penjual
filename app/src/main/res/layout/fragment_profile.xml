@@ -103,6 +103,7 @@
                         android:importantForAutofill="no"
                         android:text="Pembelian"
                         android:textColor="@color/colorBlack"
+                        android:textSize="12sp"
                         tools:ignore="HardcodedText" />
 
                 </LinearLayout>

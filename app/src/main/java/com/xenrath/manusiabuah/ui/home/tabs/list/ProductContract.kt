@@ -22,7 +22,7 @@ interface ProductContract {
         fun onResultAccount(responseAccountList: ResponseAccountList)
         fun showAlertSuccess(message: String)
         fun showAlertError(message: String)
-        fun showErrorAccount(message: String)
+        fun showAlertAccount(message: String)
         fun showAlertDelete(dataProduct: DataProduct, position: Int)
         fun showDialogDetail(dataProduct: DataProduct, position: Int)
     }

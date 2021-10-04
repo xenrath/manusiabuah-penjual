@@ -6,16 +6,17 @@ import com.xenrath.manusiabuah.data.model.offer.ResponseOfferUpdate
 interface OfferDetailContract {
     interface Presenter {
         fun offerDetail(id: Long)
-        fun offerCanceled(id: Long)
+        fun offerCanceled(offer_id: Long)
     }
 
     interface View {
         fun initActivity()
         fun initListener()
-        fun onLoadingGet(loading: Boolean, message: String? = "Loading...")
-        fun onLoadingAction(loading: Boolean)
-        fun onResult(responseOfferDetail: ResponseOfferDetail)
+        fun onLoading(loading: Boolean, message: String? = "Loading...")
+        fun onResultDetail(responseOfferDetail: ResponseOfferDetail)
         fun onResultUpdate(responseOfferUpdate: ResponseOfferUpdate)
-        fun showMessage(message: String)
+        fun showSuccess(message: String)
+        fun showError(message: String)
+        fun showAlert()
     }
 }

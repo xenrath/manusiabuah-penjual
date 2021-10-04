@@ -31,15 +31,6 @@
             android:textColor="@color/customPrimary"
             tools:ignore="HardcodedText" />
 
-        <ImageView
-            android:id="@+id/iv_help"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            app:srcCompat="@drawable/ic_baseline_help_outline_24"
-            app:tint="@color/customPrimary" />
-
     </RelativeLayout>
 
 </LinearLayout>

@@ -19,6 +19,6 @@ data class DataProduct(
     @SerializedName("latitude") val latitude: String?,
     @SerializedName("longitude") val longitude: String?,
     @SerializedName("image") val image: String?,
-    @SerializedName("stock") val stock: String?,
+    @SerializedName("stock") val stock: Int?,
     @SerializedName("user") val user: DataUser?
 )

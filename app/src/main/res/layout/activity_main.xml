@@ -19,9 +19,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="10dp"
-        app:itemIconSize="20dp"
         android:background="@drawable/background_stroke_teal"
         app:elevation="0dp"
+        app:itemIconSize="20dp"
         app:itemTextAppearanceActive="@style/Widget.BottomNavigationView"
         app:itemTextAppearanceInactive="@style/Widget.BottomNavigationView"
         app:menu="@menu/bottom_nav_menu" />

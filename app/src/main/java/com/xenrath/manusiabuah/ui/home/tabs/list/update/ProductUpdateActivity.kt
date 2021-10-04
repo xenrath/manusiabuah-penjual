@@ -38,7 +38,6 @@ class ProductUpdateActivity : AppCompatActivity(), ProductUpdateContract.View {
     private var uri: Uri? = null
     private var pickImage = 1
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_create)
@@ -49,9 +48,7 @@ class ProductUpdateActivity : AppCompatActivity(), ProductUpdateContract.View {
     @SuppressLint("SetTextI18n")
     override fun onStart() {
         super.onStart()
-
-        presenter.getDetail(Constant.PRODUCT_ID)
-        presenter.getProvince(ApiKey.key)
+        presenter.productDetail(Constant.PRODUCT_ID)
         if (Constant.LATITUDE.isNotEmpty()) {
             btn_location.text = "Ubah Titik Lokasi"
             layout_location.visibility = View.VISIBLE
@@ -61,7 +58,6 @@ class ProductUpdateActivity : AppCompatActivity(), ProductUpdateContract.View {
 
     override fun onDestroy() {
         super.onDestroy()
-
         Constant.LATITUDE = ""
         Constant.LONGITUDE = ""
     }
@@ -77,6 +73,9 @@ class ProductUpdateActivity : AppCompatActivity(), ProductUpdateContract.View {
     @SuppressLint("SetTextI18n")
     override fun initActivity() {
         tv_title.text = "Ubah Produk"
+        layout_location.visibility = View.VISIBLE
+        btn_location.text = "Ubah Titik Lokasi"
+        btn_save.text = "Ubah Produk"
 
         sLoading = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
         sSuccess = SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE).setTitleText("Berhasil")
@@ -113,25 +112,22 @@ class ProductUpdateActivity : AppCompatActivity(), ProductUpdateContract.View {
                     validationError(et_address, "Alamat produk tidak boleh kosong!")
                 }
                 Constant.PROVINCE_ID == "0" -> {
-                    showAlertError("Pilih provinsi terlebih dahulu!")
+                    showError("Pilih provinsi terlebih dahulu!")
                 }
                 Constant.CITY_ID == "0" -> {
-                    showAlertError("Pilih kota/kabupaten terlebih dahulu!")
+                    showError("Pilih kota/kabupaten terlebih dahulu!")
                 }
                 kodePos.isEmpty() -> {
                     validationError(et_pos, "Kode POS tidak boleh kosong")
                 }
                 location.isEmpty() -> {
-                    showAlertError("Titik lokasi harus ditambahkan")
+                    showError("Titik lokasi harus ditambahkan")
                 }
                 stock.isEmpty() -> {
                     validationError(et_stock, "Stock tidak boleh kosong!")
                 }
-                uri == null -> {
-                    showAlertError("Gambah harus ditambahkan!")
-                }
                 else -> {
-                    presenter.updateProduct(
+                    presenter.productUpdate(
                         Constant.PRODUCT_ID,
                         name.toString(),
                         price.toString(),
@@ -169,24 +165,29 @@ class ProductUpdateActivity : AppCompatActivity(), ProductUpdateContract.View {
 
     @SuppressLint("SetTextI18n")
     override fun onResultDetail(responseProductDetail: ResponseProductDetail) {
-        product = responseProductDetail.product
+        val status: Boolean = responseProductDetail.status
+        val message: String = responseProductDetail.message!!
 
-        pb_location.visibility = View.GONE
-        tv_location.visibility = View.VISIBLE
-        layout_location.visibility = View.VISIBLE
+        if (status) {
+            product = responseProductDetail.product!!
 
-        et_name.setText(product.name)
-        et_price.setText(product.price)
-        et_description.setText(product.description)
-        et_address.setText(product.address)
+            et_name.setText(product.name)
+            et_price.setText(product.price)
+            et_description.setText(product.description)
+            et_address.setText(product.address)
 
-        Constant.LATITUDE = product.latitude!!
-        Constant.LONGITUDE = product.longitude!!
-        et_location.text = "${Constant.LATITUDE}, ${Constant.LONGITUDE}"
+            Constant.LATITUDE = product.latitude!!
+            Constant.LONGITUDE = product.longitude!!
+            et_location.text = "${Constant.LATITUDE}, ${Constant.LONGITUDE}"
 
-        GlideHelper.setImage(this, product.image!!, iv_image)
+            GlideHelper.setImage(this, product.image!!, iv_image)
 
-        et_stock.setText(product.stock)
+            et_stock.setText(product.stock.toString())
+
+            presenter.getProvince(ApiKey.key)
+        } else {
+            showError(message)
+        }
     }
 
     override fun onResultProvince(responseRajaongkirTerritory: ResponseRajaongkirTerritory) {
@@ -262,14 +263,17 @@ class ProductUpdateActivity : AppCompatActivity(), ProductUpdateContract.View {
     }
 
     override fun onResultUpdate(responseProductUpdate: ResponseProductUpdate) {
-        if (responseProductUpdate.status) {
-            showAlertSuccess(responseProductUpdate.message)
+        val status: Boolean = responseProductUpdate.status
+        val message: String = responseProductUpdate.message!!
+
+        if (status) {
+            showSuccess(message)
         } else {
-            showAlertError(responseProductUpdate.message)
+            showError(message)
         }
     }
 
-    override fun showAlertSuccess(message: String) {
+    override fun showSuccess(message: String) {
         sSuccess
             .setContentText(message)
             .setConfirmText("OK")
@@ -280,7 +284,7 @@ class ProductUpdateActivity : AppCompatActivity(), ProductUpdateContract.View {
             .show()
     }
 
-    override fun showAlertError(message: String) {
+    override fun showError(message: String) {
         sError
             .setContentText(message)
             .setConfirmText("OK")

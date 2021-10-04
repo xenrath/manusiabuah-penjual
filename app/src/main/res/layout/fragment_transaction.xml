@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_bargain"
+                    android:id="@+id/rv_transaction"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="10dp"
@@ -46,7 +46,8 @@
                 android:background="@drawable/background_stroke_teal"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="10dp"
+                tools:ignore="UselessParent">
 
                 <ImageView
                     android:layout_width="100dp"
@@ -54,6 +55,7 @@
                     android:src="@drawable/fruit_backgroud" />
 
                 <TextView
+                    android:id="@+id/tv_empty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins"

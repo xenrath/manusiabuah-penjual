@@ -23,6 +23,10 @@
     <color name="customTeal">#39cccc</color>
     <color name="customOlive">#3d9970</color>
 
+    <color name="customFacebook">#3b5998</color>
+    <color name="customGoogle">#db4a39</color>
+    <color name="customGithub">#333</color>
+
     <color name="colorPrimary">#001342</color>
     <color name="colorPrimaryDark">#001342</color>
     <color name="colorPrimarySoft">#204DBE</color>

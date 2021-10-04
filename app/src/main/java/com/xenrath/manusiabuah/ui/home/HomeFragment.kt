@@ -12,7 +12,7 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.xenrath.manusiabuah.R
 import com.xenrath.manusiabuah.ui.home.tabs.list.ProductFragment
-import com.xenrath.manusiabuah.ui.home.tabs.seller.OtherFragment
+import com.xenrath.manusiabuah.ui.home.tabs.sell.OtherFragment
 
 class HomeFragment : Fragment(), HomeContract.View {
 
@@ -20,7 +20,6 @@ class HomeFragment : Fragment(), HomeContract.View {
 
     lateinit var tvTitle: TextView
     private lateinit var ivBack: ImageView
-    private lateinit var ivHelp: ImageView
     private lateinit var viewPager: ViewPager
     lateinit var tabs: TabLayout
 
@@ -42,7 +41,6 @@ class HomeFragment : Fragment(), HomeContract.View {
     override fun initFragment(view: View) {
         tvTitle = view.findViewById(R.id.tv_title)
         ivBack = view.findViewById(R.id.iv_back)
-        ivHelp = view.findViewById(R.id.iv_help)
         viewPager = view.findViewById(R.id.view_pager)
         tabs = view.findViewById(R.id.tabs)
 

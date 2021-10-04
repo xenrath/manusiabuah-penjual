@@ -1,6 +1,8 @@
 package com.xenrath.manusiabuah.ui.payment
 
 import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.xenrath.manusiabuah.R
 import com.xenrath.manusiabuah.data.model.account.DataAccount
@@ -40,7 +43,13 @@ class PaymentAdapter(
         holder.tvName.text = account.name
         holder.tvNumber.text = account.number
         GlideHelper.setImage(context, bank.image!!, holder.ivBank)
-        holder.ivCopyAccount.visibility = View.GONE
+        holder.ivCopyAccount.setOnClickListener {
+            val copyManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val copyText = ClipData.newPlainText("text", account.number)
+            copyManager.setPrimaryClip(copyText)
+
+            Toast.makeText(context, "Nomor rekening berhasil di salin", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun getItemCount(): Int {

@@ -16,7 +16,7 @@ import com.xenrath.manusiabuah.data.database.PrefManager
 import com.xenrath.manusiabuah.data.model.offer.DataOffer
 import com.xenrath.manusiabuah.data.model.offer.ResponseOfferList
 import com.xenrath.manusiabuah.ui.offer.OfferActivity
-import com.xenrath.manusiabuah.ui.manage.offer.OfferManageActivity
+import com.xenrath.manusiabuah.ui.offer.manage.OfferManageActivity
 import com.xenrath.manusiabuah.ui.transaction.TransactionActivity
 import com.xenrath.manusiabuah.utils.sweetalert.SweetAlertDialog
 

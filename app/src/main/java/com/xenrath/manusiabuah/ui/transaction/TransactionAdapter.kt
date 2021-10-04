@@ -22,13 +22,14 @@ class TransactionAdapter(
 
     class Holder(view: View) : RecyclerView.ViewHolder(view) {
         val tvProductName = view.findViewById<TextView>(R.id.tv_product_name)!!
-        val tvTotalItemPrice = view.findViewById<TextView>(R.id.tv_total_item_price)!!
+        val tvTotalItemPrice = view.findViewById<TextView>(R.id.tv_product_price)!!
         val tvAddress = view.findViewById<TextView>(R.id.tv_address)!!
         val tvCourierServiceType = view.findViewById<TextView>(R.id.tv_courier_service_type)!!
         val layoutStatus = view.findViewById<LinearLayout>(R.id.layout_status)!!
         val tvStatus = view.findViewById<TextView>(R.id.tv_status)!!
         val layoutInvoice = view.findViewById<LinearLayout>(R.id.layout_invoice)!!
         val tvInvoice = view.findViewById<TextView>(R.id.tv_invoice)!!
+        val layoutTransaction = view.findViewById<LinearLayout>(R.id.layout_transaction)!!
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -42,12 +43,11 @@ class TransactionAdapter(
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val transaction = transaction[position]
         val product = transaction.product!!
-        val address = transaction.address!!
 
         holder.tvProductName.text = product.name
         holder.tvTotalItemPrice.text = "${transaction.total_item} x ${transaction.price}"
         holder.tvAddress.text =
-            "${product.city_name} ${product.province_name} - ${address.city_name} ${address.province_name}"
+            "${product.city_name} ${product.province_name} - ${transaction.origin}"
         holder.tvCourierServiceType.text = transaction.courier + transaction.service_type
         var color = context.getColor(R.color.wait)
         when (transaction.status) {
@@ -64,13 +64,16 @@ class TransactionAdapter(
         holder.tvStatus.text = transaction.status
         holder.tvStatus.setTextColor(color)
         holder.tvInvoice.text = transaction.invoice_number
-        holder.layoutInvoice.setOnClickListener {
-            if (transaction.status == "Belum dibayar") {
-                Constant.TRANSACTION_ID = transaction.id!!
-                context.startActivity(Intent(context, PaymentActivity::class.java))
-            } else {
-                Constant.TRANSACTION_ID = transaction.id!!
-                context.startActivity(Intent(context, TransactionDetailActivity::class.java))
+        holder.layoutTransaction.setOnClickListener {
+            when (transaction.status) {
+                "Belum dibayar" -> {
+                    Constant.TRANSACTION_ID = transaction.id!!
+                    context.startActivity(Intent(context, PaymentActivity::class.java))
+                }
+                else -> {
+                    Constant.TRANSACTION_ID = transaction.id!!
+                    context.startActivity(Intent(context, TransactionDetailActivity::class.java))
+                }
             }
         }
     }

@@ -87,9 +87,6 @@ class ProductCreateActivity : AppCompatActivity(), ProductCreateContract.View {
         iv_back.setOnClickListener {
             finish()
         }
-        iv_help.setOnClickListener {
-
-        }
         btn_location.setOnClickListener {
             startActivity(Intent(this, ProductMapsActivity::class.java))
         }
@@ -117,19 +114,19 @@ class ProductCreateActivity : AppCompatActivity(), ProductCreateContract.View {
                     validationError(et_address, "Alamat produk tidak boleh kosong!")
                 }
                 Constant.PROVINCE_ID == "0" -> {
-                    showAlertError("Pilih provinsi terlebih dahulu!")
+                    showError("Pilih provinsi terlebih dahulu!")
                 }
                 Constant.CITY_ID == "0" -> {
-                    showAlertError("Pilih kota/kabupaten terlebih dahulu!")
+                    showError("Pilih kota/kabupaten terlebih dahulu!")
                 }
                 kodePos.isEmpty() -> {
                     validationError(et_pos, "Kode POS tidak boleh kosong")
                 }
                 location.isEmpty() -> {
-                    showAlertError("Titik lokasi harus ditambahkan")
+                    showError("Titik lokasi harus ditambahkan")
                 }
                 uri == null -> {
-                    showAlertError("Gambah harus ditambahkan!")
+                    showError("Gambah harus ditambahkan!")
                 }
                 stock.isEmpty() -> {
                     validationError(et_stock, "Stock tidak boleh kosong!")
@@ -172,10 +169,13 @@ class ProductCreateActivity : AppCompatActivity(), ProductCreateContract.View {
     }
 
     override fun onResult(responseProductUpdate: ResponseProductUpdate) {
-        if (responseProductUpdate.status) {
-            showAlertSuccess(responseProductUpdate.message)
+        val status: Boolean = responseProductUpdate.status
+        val message: String = responseProductUpdate.message!!
+
+        if (status) {
+            showSuccess(message)
         } else {
-            showAlertError(responseProductUpdate.message)
+            showError(message)
         }
     }
 
@@ -246,7 +246,7 @@ class ProductCreateActivity : AppCompatActivity(), ProductCreateContract.View {
         }
     }
 
-    override fun showAlertSuccess(message: String) {
+    override fun showSuccess(message: String) {
         sSuccess
             .setContentText(message)
             .setConfirmText("OK")
@@ -257,7 +257,7 @@ class ProductCreateActivity : AppCompatActivity(), ProductCreateContract.View {
             .show()
     }
 
-    override fun showAlertError(message: String) {
+    override fun showError(message: String) {
         sError
             .setContentText(message)
             .setConfirmText("OK")

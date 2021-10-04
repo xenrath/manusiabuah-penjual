@@ -37,8 +37,8 @@ interface ProductCreateContract {
         fun onResult(responseProductUpdate: ResponseProductUpdate)
         fun onResultProvince(responseRajaongkirTerritory: ResponseRajaongkirTerritory)
         fun onResultCity(responseRajaongkirTerritory: ResponseRajaongkirTerritory)
-        fun showAlertSuccess(message: String)
-        fun showAlertError(message: String)
+        fun showSuccess(message: String)
+        fun showError(message: String)
         fun validationError(editText: EditText, message: String)
     }
 

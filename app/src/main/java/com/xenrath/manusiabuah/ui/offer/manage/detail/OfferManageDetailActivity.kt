@@ -35,12 +35,12 @@ class OfferManageDetailActivity : AppCompatActivity(), OfferManageDetailContract
 
     override fun onStart() {
         super.onStart()
-        presenterOffer.offerDetail(Constant.BARGAIN_ID)
+        presenterOffer.offerDetail(Constant.OFFER_ID)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Constant.BARGAIN_ID = 0
+        Constant.OFFER_ID = 0
     }
 
     @SuppressLint("SetTextI18n")
@@ -56,9 +56,6 @@ class OfferManageDetailActivity : AppCompatActivity(), OfferManageDetailContract
     override fun initListener() {
         iv_back.setOnClickListener {
             onBackPressed()
-        }
-        iv_help.setOnClickListener {
-
         }
         btn_reject.setOnClickListener {
             showAlertReject(offer)

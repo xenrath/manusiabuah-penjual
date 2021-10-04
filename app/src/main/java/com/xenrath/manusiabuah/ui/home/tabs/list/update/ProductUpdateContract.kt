@@ -9,10 +9,10 @@ import java.io.File
 interface ProductUpdateContract {
 
     interface Presenter {
-        fun getDetail(id: Long)
+        fun productDetail(id: Long)
         fun getProvince(key: String)
         fun getCity(key: String, id: String)
-        fun updateProduct(
+        fun productUpdate(
             id: Long,
             name: String,
             price: String,
@@ -39,8 +39,8 @@ interface ProductUpdateContract {
         fun onResultProvince(responseRajaongkirTerritory: ResponseRajaongkirTerritory)
         fun onResultCity(responseRajaongkirTerritory: ResponseRajaongkirTerritory)
         fun onResultUpdate(responseProductUpdate: ResponseProductUpdate)
-        fun showAlertSuccess(message: String)
-        fun showAlertError(message: String)
+        fun showSuccess(message: String)
+        fun showError(message: String)
         fun validationError(editText: EditText, message: String)
     }
 

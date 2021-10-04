@@ -38,11 +38,11 @@ class NotificationAdapter(
         holder.tvPrice.text = bargain.price
         holder.tvPriceOffer.text = bargain.price_offer
         holder.btnReject.setOnClickListener {
-            Constant.BARGAIN_ID = bargain.id!!
+            Constant.OFFER_ID = bargain.id!!
             clickListener(bargain, position, "reject")
         }
         holder.btnAccept.setOnClickListener {
-            Constant.BARGAIN_ID = bargain.id!!
+            Constant.OFFER_ID = bargain.id!!
             clickListener(bargain, position, "accept")
         }
     }

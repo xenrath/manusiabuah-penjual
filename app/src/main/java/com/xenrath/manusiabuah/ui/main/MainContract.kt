@@ -7,5 +7,6 @@ interface MainContract {
         fun initActivity()
         fun initListener()
         fun callFragment(int: Int, fragment: Fragment)
+        fun fcmToken()
     }
 }

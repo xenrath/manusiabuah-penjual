@@ -49,9 +49,6 @@ class ProductMapsActivity : AppCompatActivity(), ProductMapsContract.View, OnMap
         iv_back.setOnClickListener {
             onBackPressed()
         }
-        iv_help.setOnClickListener {
-
-        }
         btn_save.setOnClickListener {
             finish()
         }

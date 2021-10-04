@@ -3,11 +3,15 @@ package com.xenrath.manusiabuah.ui.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.messaging.FirebaseMessaging
 import com.xenrath.manusiabuah.R
 import com.xenrath.manusiabuah.data.database.PrefManager
 import com.xenrath.manusiabuah.ui.AuthActivity
@@ -15,6 +19,7 @@ import com.xenrath.manusiabuah.ui.notification.NotificationFragment
 import com.xenrath.manusiabuah.ui.home.HomeFragment
 import com.xenrath.manusiabuah.ui.login.LoginActivity
 import com.xenrath.manusiabuah.ui.profile.ProfileFragment
+import com.xenrath.manusiabuah.utils.FacebookHelper
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
@@ -37,12 +42,13 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         prefManager = PrefManager(this)
         presenter = MainPresenter(this)
+
+        FacebookHelper.printHashKey(this)
     }
 
     override fun onStart() {
         super.onStart()
         if (!prefManager.prefLogin) {
-            finish()
             startActivity(Intent(this, LoginActivity::class.java))
         }
     }
@@ -58,6 +64,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         menu = bottomNavigationView.menu
         menuItem = menu.getItem(0)
         menuItem.isChecked = true
+
+        fcmToken()
     }
 
     override fun initListener() {
@@ -86,5 +94,21 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         menuItem.isChecked = true
         fm.beginTransaction().hide(active).show(fragment).commit()
         active = fragment
+    }
+
+    override fun fcmToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("Response", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+
+            // Log and toast
+            Log.d("Response FCM : ", token.toString())
+            Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
+        })
     }
 }

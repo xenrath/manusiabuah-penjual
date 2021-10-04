@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -42,56 +41,51 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"
                     android:text="Daftar Alamat Anda"
-                    android:textSize="12sp"
                     android:textColor="@color/colorBlack"
+                    android:textSize="12sp"
                     tools:ignore="HardcodedText" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_add_address"
+                    android:id="@+id/btn_address"
                     android:layout_width="wrap_content"
-                    android:layout_height="38dp"
+                    android:layout_height="32dp"
                     android:layout_alignParentEnd="true"
                     android:background="@drawable/button_stroke_primary"
-                    android:drawableStart="@drawable/ic_baseline_add_24"
-                    android:drawablePadding="4dp"
-                    android:textSize="12sp"
                     android:fontFamily="@font/poppins"
-                    android:paddingHorizontal="14dp"
-                    android:text="Tambah"
+                    android:paddingHorizontal="12dp"
+                    android:text="Tambah Alamat"
                     android:textAllCaps="false"
                     android:textColor="@color/colorBlack"
-                    app:drawableTint="@color/customGrayDark"
+                    android:textSize="12sp"
                     tools:ignore="HardcodedText" />
 
             </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/text_empty"
+                android:id="@+id/layout_empty"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/background_stroke_teal"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingVertical="10dp"
-                android:visibility="gone">
+                android:padding="10dp"
+                android:visibility="gone"
+                tools:ignore="UselessParent">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/address" />
 
                 <TextView
+                    android:id="@+id/tv_empty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins"
-                    android:text="Anda belum menambahkan alamat!"
+                    android:text="Message Address"
                     android:textColor="@color/colorBlack"
-                    tools:ignore="HardcodedText" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/poppins_light"
-                    android:gravity="center"
-                    android:text="Tambahkan alamat anda sekarang untuk belanja di\nAplikasi Fruitman"
-                    android:textColor="@color/colorBlack"
+                    android:textSize="12sp"
                     tools:ignore="HardcodedText" />
 
             </LinearLayout>

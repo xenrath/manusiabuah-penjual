@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xenrath.manusiabuah.R
 import com.xenrath.manusiabuah.data.Constant
 import com.xenrath.manusiabuah.data.model.offer.DataOffer
-import com.xenrath.manusiabuah.ui.manage.offer.detail.OfferManageDetailActivity
+import com.xenrath.manusiabuah.ui.offer.manage.detail.OfferManageDetailActivity
 import com.xenrath.manusiabuah.utils.CurrencyHelper
 
 class OfferManageAdapter(
@@ -27,7 +27,7 @@ class OfferManageAdapter(
         val tvPrice = view.findViewById<TextView>(R.id.tv_price)!!
         val tvPriceOffer = view.findViewById<TextView>(R.id.tv_price_offer)!!
         val tvStatus = view.findViewById<TextView>(R.id.tv_status)!!
-        val layoutBargain = view.findViewById<LinearLayout>(R.id.layout_bargain)!!
+        val layoutBargain = view.findViewById<LinearLayout>(R.id.layout_transaction)!!
         val layoutUser = view.findViewById<LinearLayout>(R.id.layout_user)!!
         val layoutStatus = view.findViewById<LinearLayout>(R.id.layout_status)!!
     }
@@ -72,7 +72,7 @@ class OfferManageAdapter(
         holder.tvStatus.setTextColor(color)
 
         holder.layoutBargain.setOnClickListener {
-            Constant.BARGAIN_ID = bargain.id!!
+            Constant.OFFER_ID = bargain.id!!
             context.startActivity(Intent(context, OfferManageDetailActivity::class.java))
         }
     }

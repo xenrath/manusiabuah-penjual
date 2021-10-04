@@ -15,7 +15,7 @@ class AddressPresenter(val view: AddressContract.View): AddressContract.Presente
         view.onLoading(false)
     }
 
-    override fun getAddress(user_id: String) {
+    override fun addressList(user_id: String) {
         view.onLoading(true)
         ApiService.endPoint.addressList(user_id).enqueue(object: Callback<ResponseAddressList>{
             override fun onResponse(
@@ -36,9 +36,9 @@ class AddressPresenter(val view: AddressContract.View): AddressContract.Presente
         })
     }
 
-    override fun checkAddress(id: Long, user_id: String) {
+    override fun addressNonActive(user_id: Long) {
         view.onLoading(true)
-        ApiService.endPoint.addressActived(id, user_id).enqueue(object: Callback<ResponseAddressUpdate> {
+        ApiService.endPoint.addressNonActived(user_id, "PUT").enqueue(object: Callback<ResponseAddressUpdate> {
             override fun onResponse(
                 call: Call<ResponseAddressUpdate>,
                 response: Response<ResponseAddressUpdate>
@@ -46,14 +46,53 @@ class AddressPresenter(val view: AddressContract.View): AddressContract.Presente
                 view.onLoading(false)
                 if (response.isSuccessful) {
                     val responseAddressUpdate: ResponseAddressUpdate? = response.body()
-                    view.onResultChoice(responseAddressUpdate!!)
+                    view.onResultNonActive(responseAddressUpdate!!)
                 }
             }
 
             override fun onFailure(call: Call<ResponseAddressUpdate>, t: Throwable) {
                 view.onLoading(false)
             }
+        })
+    }
 
+    override fun addressActive(id: Long) {
+        view.onLoading(true, "Mengaktifkan alamat...")
+        ApiService.endPoint.addressActived(id, "PUT").enqueue(object: Callback<ResponseAddressUpdate> {
+            override fun onResponse(
+                call: Call<ResponseAddressUpdate>,
+                response: Response<ResponseAddressUpdate>
+            ) {
+                view.onLoading(false)
+                if (response.isSuccessful) {
+                    val responseAddressUpdate: ResponseAddressUpdate? = response.body()
+                    view.onResultActive(responseAddressUpdate!!)
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseAddressUpdate>, t: Throwable) {
+                view.onLoading(false)
+            }
+        })
+    }
+
+    override fun addressDelete(id: Long) {
+        view.onLoading(true, "Menghapus alamat...")
+        ApiService.endPoint.addressDelete(id).enqueue(object: Callback<ResponseAddressUpdate> {
+            override fun onResponse(
+                call: Call<ResponseAddressUpdate>,
+                response: Response<ResponseAddressUpdate>
+            ) {
+                view.onLoading(false)
+                if (response.isSuccessful) {
+                    val responseAddressUpdate: ResponseAddressUpdate? = response.body()
+                    view.onResultDelete(responseAddressUpdate!!)
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseAddressUpdate>, t: Throwable) {
+                view.onLoading(false)
+            }
         })
     }
 }

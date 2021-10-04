@@ -38,9 +38,6 @@ class UserActivity : AppCompatActivity(), UserContract.View {
         iv_back.setOnClickListener {
             onBackPressed()
         }
-        iv_help.setOnClickListener {
-
-        }
     }
 
     override fun onLoading(loading: Boolean, message: String?) {

@@ -13,7 +13,7 @@ import com.xenrath.manusiabuah.R
 import com.xenrath.manusiabuah.data.database.PrefManager
 import com.xenrath.manusiabuah.data.model.offer.DataOffer
 import com.xenrath.manusiabuah.data.model.offer.ResponseOfferList
-import com.xenrath.manusiabuah.ui.manage.offer.OfferManageAdapter
+import com.xenrath.manusiabuah.ui.offer.manage.OfferManageAdapter
 import com.xenrath.manusiabuah.utils.sweetalert.SweetAlertDialog
 
 class OfferManageHistoryFragment : Fragment(), OfferManageHistoryContract.View {

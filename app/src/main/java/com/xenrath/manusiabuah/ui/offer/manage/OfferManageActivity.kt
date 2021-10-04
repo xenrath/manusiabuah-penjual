@@ -4,8 +4,8 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.xenrath.manusiabuah.R
-import com.xenrath.manusiabuah.ui.manage.offer.tabs.history.OfferManageHistoryFragment
-import com.xenrath.manusiabuah.ui.manage.offer.tabs.waiting.OfferManageWaitingFragment
+import com.xenrath.manusiabuah.ui.offer.manage.tabs.history.OfferManageHistoryFragment
+import com.xenrath.manusiabuah.ui.offer.manage.tabs.waiting.OfferManageWaitingFragment
 import kotlinx.android.synthetic.main.activity_bargain.*
 import kotlinx.android.synthetic.main.toolbar_custom.*
 

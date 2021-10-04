@@ -7,13 +7,19 @@ import com.xenrath.manusiabuah.data.database.PrefManager
 interface LoginContract {
 
     interface Presenter {
-        fun doLogin(email: String, password: String, level: String)
+        fun userLogin(
+            email: String,
+            password: String,
+            level: String,
+            fcm: String
+        )
         fun setPref(prefManager: PrefManager, dataUser: DataUser)
     }
 
     interface View {
         fun initActivity()
         fun initListener()
+        fun fcmToken()
         fun onLoading(loading: Boolean, message: String? = "Loading")
         fun onResult(responseUser: ResponseUser)
         fun showAlertSuccess(message: String)

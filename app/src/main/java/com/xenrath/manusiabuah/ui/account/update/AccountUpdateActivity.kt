@@ -13,6 +13,7 @@ import com.xenrath.manusiabuah.data.database.PrefManager
 import com.xenrath.manusiabuah.data.model.account.DataAccount
 import com.xenrath.manusiabuah.data.model.account.ResponseAccountDetail
 import com.xenrath.manusiabuah.data.model.account.ResponseAccountUpdate
+import com.xenrath.manusiabuah.data.model.bank.DataBank
 import com.xenrath.manusiabuah.data.model.bank.ResponseBankList
 import com.xenrath.manusiabuah.utils.sweetalert.SweetAlertDialog
 import kotlinx.android.synthetic.main.activity_account_create.*
@@ -39,7 +40,6 @@ class AccountUpdateActivity : AppCompatActivity(), AccountUpdateContract.View {
 
     override fun onStart() {
         super.onStart()
-
         presenter.accountDetail(Constant.ACCOUNT_ID)
         presenter.bankList()
     }
@@ -105,27 +105,48 @@ class AccountUpdateActivity : AppCompatActivity(), AccountUpdateContract.View {
     }
 
     override fun onResultDetail(responseAccountDetail: ResponseAccountDetail) {
-        account = responseAccountDetail.account!!
+        val status: Boolean = responseAccountDetail.status
+        val message: String = responseAccountDetail.message!!
 
-        et_account_name.setText(account.name)
-        et_account_number.setText(account.number)
+        if (status) {
+            account = responseAccountDetail.account!!
+
+            et_account_name.setText(account.name)
+            et_account_number.setText(account.number)
+        } else {
+            showAlertError(message)
+        }
     }
 
     override fun onResultUpdate(responseAccountUpdate: ResponseAccountUpdate) {
-        if (responseAccountUpdate.status) {
-            showAlertSuccess(responseAccountUpdate.message)
+        val status: Boolean = responseAccountUpdate.status
+        val message: String = responseAccountUpdate.message!!
+
+        if (status) {
+            showAlertSuccess(message)
         } else {
-            showAlertError(responseAccountUpdate.message)
+            showAlertError(message)
         }
     }
 
     override fun onResultBank(responseBankList: ResponseBankList) {
+        val status: Boolean = responseBankList.status
+        val message: String = responseBankList.message!!
+
+        if (status) {
+            val banks: List<DataBank> = responseBankList.banks!!
+            spinBank(banks)
+        } else {
+            showAlertError(message)
+        }
+    }
+
+    override fun spinBank(banks: List<DataBank>) {
         layout_bank.visibility = View.VISIBLE
 
         val arrayString = ArrayList<String>()
         arrayString.add("Pilih Bank")
-        val listBank = responseBankList.banks!!
-        for (bank in listBank) {
+        for (bank in banks) {
             arrayString.add(bank.name!!)
         }
         val adapter = ArrayAdapter(this, R.layout.item_spiner, arrayString.toTypedArray())
@@ -136,8 +157,8 @@ class AccountUpdateActivity : AppCompatActivity(), AccountUpdateContract.View {
         spin_bank.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if (position != 0) {
-                    val idBank = listBank[position-1].id!!
-                    val nameBank = listBank[position-1].name!!
+                    val idBank = banks[position - 1].id!!
+                    val nameBank = banks[position - 1].name!!
                     Constant.BANK_ID = idBank.toString()
                     Constant.BANK_NAME = nameBank
                 }

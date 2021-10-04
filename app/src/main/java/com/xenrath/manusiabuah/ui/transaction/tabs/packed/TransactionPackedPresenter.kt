@@ -1,28 +1,31 @@
 package com.xenrath.manusiabuah.ui.transaction.tabs.packed
 
-class TransactionPackedPresenter(val view: TransactionPackedContract.View): TransactionPackedContract.Presenter {
+import com.xenrath.manusiabuah.data.model.transaction.ResponseTransactionList
+import com.xenrath.manusiabuah.network.ApiService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-    override fun getBargainHistory(
-        user_id: String, status: String
-    ) {
-        view.onLoading(true, "Menampilkan tawaran...")
-//        ApiService.endPoint.getMyBargain(user_id, status).enqueue(object: Callback<ResponseBargainList> {
-//            override fun onResponse(
-//                call: Call<ResponseBargainList>,
-//                response: Response<ResponseBargainList>
-//            ) {
-//                view.onLoading(false)
-//                if (response.isSuccessful) {
-//                    val responseBargainList: ResponseBargainList? = response.body()
-//                    view.onResult(responseBargainList!!)
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<ResponseBargainList>, t: Throwable) {
-//                view.onLoading(false)
-//            }
-//
-//        })
+class TransactionPackedPresenter(val view: TransactionPackedContract.View) :
+    TransactionPackedContract.Presenter {
+    override fun transactionPacked(id: Long) {
+        view.onLoading(true, "Menampilkan pembelian...")
+        ApiService.endPoint.transactionPacked(id)
+            .enqueue(object : Callback<ResponseTransactionList> {
+                override fun onResponse(
+                    call: Call<ResponseTransactionList>,
+                    response: Response<ResponseTransactionList>
+                ) {
+                    view.onLoading(false)
+                    if (response.isSuccessful) {
+                        val responseTransactionList: ResponseTransactionList? = response.body()
+                        view.onResult(responseTransactionList!!)
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseTransactionList>, t: Throwable) {
+                    view.onLoading(false)
+                }
+            })
     }
-
 }

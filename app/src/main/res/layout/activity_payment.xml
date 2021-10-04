@@ -265,7 +265,7 @@
         android:layout_margin="10dp"
         android:background="@drawable/button_primary"
         android:fontFamily="@font/poppins_medium"
-        android:text="Bayar Sekarang"
+        android:text="Upload Bukti Pembayaran"
         android:textColor="@color/colorWhite"
         android:textSize="12sp"
         tools:ignore="HardcodedText" />
